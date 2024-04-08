@@ -1,0 +1,53 @@
+
+
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+  }
+  /* .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    box-sizing: border-box;
+  } */
+  /* Header styles */
+  app-header {
+    background-color: #131921;
+    color: #fff;
+    padding: 10px 0;
+     display: block;
+  }
+  /* Menu bar styles */
+  app-menu-bar {
+    background-color: #232f3e;
+    color: #fff;
+    padding: 10px 0;
+    text-align: center;
+    display: block;
+  }
+ 
+  /* Main page content styles */
+ 
+  /* Footer styles */
+  app-footer-main {
+    background-color:#131A22;
+    color: #fff;
+    padding: 10px 0;
+    text-align: center;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    display: block;
+  }
+  /* Responsive layout */
+  @media screen and (max-width: 768px) {
+    app-side-bar {
+      width: 100%;
+      left: -100%;
+    }
+    app-image-slider {
+      margin-left: 0;
+    }
+  }

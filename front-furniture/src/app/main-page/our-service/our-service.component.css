@@ -1,0 +1,12 @@
+.service{
+  
+    background-image:url('../../../assets/background.avif') ;
+    background-size: cover;
+
+}
+img{
+    height: 400px;
+    width: 600px;
+    
+
+}

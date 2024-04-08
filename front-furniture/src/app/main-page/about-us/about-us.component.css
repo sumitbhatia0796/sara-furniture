@@ -1,0 +1,54 @@
+.about-us {
+    padding: 50px 0;
+  }
+  
+  .about-tiles {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .tile {
+    flex: 1;
+    margin: 20px;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+  }
+  
+  .tile:hover {
+    transform: scale(1.1);
+  }
+  
+  .tile1 {
+    background-image: url('../../../assets/furniture1.jpeg');
+    background-size: cover;
+  }
+  
+  .tile2 {
+    background-image: url('../../../assets/furniture1.jpeg');
+    background-size: cover;
+  }
+  
+  .tile3 {
+    background-image: url('../../../assets/furniture1.jpeg');
+    background-size: cover;
+  }
+  
+  /* .tile4 {
+    background-image: url('../../../assets/furniture1.jpg');
+    background-size: cover;
+  } */
+  
+  h3 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+  }
+  
+  p, ul {
+    font-size: 1.1rem;
+    line-height: 1.6;
+  }
+  
