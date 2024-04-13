@@ -8,6 +8,7 @@ import { OurServiceComponent } from './main-page/our-service/our-service.compone
 import { AboutUsComponent } from './main-page/about-us/about-us.component';
 import { OurProductsComponent } from './main-page/our-products/our-products.component';
 import { HomeComponent } from './main-page/home/home.component';
+import { authguardGuard } from './authguard.guard';
 
 const routes: Routes = [
   
@@ -15,10 +16,11 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'best-deal', component: BestDealComponent },
-  { path: 'our-service', component: OurServiceComponent },
+  { path: 'our-service', component: OurServiceComponent, canActivate:[authguardGuard]},
   { path: 'about-us', component: AboutUsComponent },
   { path: 'our-products', component:OurProductsComponent},
-  { path: '**', redirectTo: 'home', pathMatch: 'full' }
+  { path: '**', redirectTo: 'home', pathMatch: 'full' },
+
 ];
 
 @NgModule({

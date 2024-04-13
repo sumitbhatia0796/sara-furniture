@@ -1,0 +1,12 @@
+<div>
+
+<div class="slideshow-container">
+    <div *ngFor="let image of images" class="mySlides fade">
+      <img [src]="image" style="width: 100%">
+    </div>
+  
+    <a class="prev" (click)="plusSlides(-1)">&#10094;</a>
+    <a class="next" (click)="plusSlides(1)">&#10095;</a>
+  </div>
+</div>
+  

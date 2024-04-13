@@ -6,6 +6,7 @@ import { OurServiceComponent } from './our-service/our-service.component';
 import { AboutUsComponent } from './about-us/about-us.component';
 import { OurProductsComponent } from './our-products/our-products.component';
 import { HomeComponent } from './home/home.component';
+import { SlideshowComponent } from './home/slideshow/slideshow.component';
 @NgModule({
   declarations: [
     BestDealComponent,
@@ -13,6 +14,7 @@ import { HomeComponent } from './home/home.component';
     AboutUsComponent,
     OurProductsComponent,
     HomeComponent,
+    SlideshowComponent,
  
   ],
   imports: [
