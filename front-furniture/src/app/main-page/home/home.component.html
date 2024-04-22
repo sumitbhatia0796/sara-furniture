@@ -7,69 +7,19 @@
   <title>Wooden Furniture Products</title>
 </head>
 <body>
-  <div class="container">
+  <app-slideshow></app-slideshow>
+  <!-- <div class="container">
     <app-slideshow></app-slideshow>
-  </div>
-  <br>
+  </div> -->
   <br>
 <div class="container2">
-  <div class="card">
-    <img src="./../../assets/sofa.webp" alt="Wooden Door">
-    <h2>Wooden Sofa</h2>
-    <p>Description of the wooden chair. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-    <button><a routerLink="/our-products">View more</a></button>
+  <div class="card" *ngFor="let data of productHome">
+    <img [src]="intialImgUrl + data.imageUrl" alt="Wooden Door">
+    <h2>{{data?.productName}}</h2>
+    <p>{{data?.description}}</p>
+    <button (click)="getSelectedCategoryProduct(data.productCategory)">View more</button>
   </div>
-
-
-  <div class="card">
-    <img src="./../../assets/service1.jpg" alt="Wooden Door">
-    <h2>Wooden Door</h2>
-    <p>Description of the wooden chair. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-    <a routerLink="/our-products">View more</a>
-  </div>
-
-  <div class="card">
-    <img src="./../../assets/chair-home.png" alt="Wooden Chair">
-    <h2>Wooden Chair</h2>
-    <p>Description of the wooden chair. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-    <button>View more</button>
-  </div>
-
-  <div class="card">
-    <img src="./../../assets/almira-home.jpeg" alt="Wooden Almira">
-    <h2>Wooden Almira</h2>
-    <p>Description of the wooden chair. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-    <button>View more</button>
-  </div>
-
-  <div class="card">
-    <img src="./../../assets/table.avif" alt="Wooden Table">
-    <h2>Wooden Table</h2>
-    <p>Description of the wooden chair. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-    <button>View more</button>
-  </div>
-
-   <div class="card">
-    <img src="./../../assets/cabinet.jpg" alt="Wooden Cabinet">
-    <h2>Wooden Cabinet</h2>
-    <p>Description of the wooden chair. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-    <button>View more</button>
-  </div>
-
-  <div class="card">
-    <img src="./../../assets/pvcdoor.png" alt="PVC/Mica Door">
-    <h2>PVC/Mica Door</h2>
-    <p>Description of the wooden chair. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-    <button>View more</button>
-  </div>
-
-  <div class="card">
-    <img src="./../../assets/service2.jpg" alt="Wooden Bed">
-    <h2>Bed</h2>
-    <p>Description of the wooden chair. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-    <button>View more</button>
-  </div>
-  </div>
+</div>
   
 </body>
 </html>

@@ -1,0 +1,24 @@
+{
+  // Use IntelliSense to learn about possible attributes.
+  // Hover to view descriptions of existing attributes.
+  // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Furniture",
+      "program": "D:/project/back-furniture/src/app.js",
+      "outputCapture": "std",
+      "env": {
+        "PORT": "3000",
+        "NODE_ENV": "development",
+        "DB_USERNAME": "sumitbhatia0796",
+        "PASSWORD": "RfBA4HZbfGr3lSmI",
+        "DB_NAME": "furniture",
+        "DB_HOST": "furniture-web.mzho3dq.mongodb.net",
+        "DB_ATLAS": "true",
+      }
+    }
+  ]
+}

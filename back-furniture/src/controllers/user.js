@@ -1,61 +1,102 @@
 'use strict';
  const User = require('../models/user');
-/**
- * getValue controller
- *
- * @param {any} req
- * @param {any} res
- * @param {any} next
- */
-const getUser = async (req, res, next) => {
-  try {
-    const result = await User.find({});
-    res.status(200).send(result);
-  } catch (err) {
-    res.status(404).send({
-      message: err.message,
-      status: 'failure',
-    });
-  }
-};
-module.exports.getUser = getUser;
+ const { v4:uuidv4 } = require('uuid') ;
+ const boom = require("@hapi/boom");
+ const {calculateLimitAndOffset, paginate } = require ('paginate-info');
 
-/**
- * addValue controller
- *
- * @param {any} req
- * @param {any} res
- * @param {any} next
- */
-const addUser = async (req, res, next) => {
-  const user = new User(req.body); // Use the User model to create a new user object
-  try {
-    await user.save(); // Wait for the user to be saved to the database
-    res.send(user); // Send the saved user object as the response
-  } catch (error) {
-    res.status(500).send(error); // Handle any errors that occur during saving
-  }
-};
-module.exports.addUser = addUser;
+ const wrapper = fn =>(req,res,next) =>{
+  Promise.resolve(fn(req,res,next)).catch((err)=>{
+    if(!err.isBoom){
+      return next(boom.badImplementation(err));
+    }
+  })
+ }
 
-/**
- * deleteValue controller
- *
- * @param {any} req
- * @param {any} res
- * @param {any} next
- */
-const deleteValue = (req, res, next) => {
+exports.getUser = wrapper(async (req, res) => {
   try {
-    res.status(200).send({
-      data: 'Value deleted',
-      status: 'success',
-    });
+    let filter = {};
+    const currentPage = req.query.currentPage || '1';
+    const pageSize = req.query.pageSize || '50';
+    const sort = req.query.sort || 'createTime';
+    const sortDirection = req.query.sortDirection || 'asc';
+    // const result = await User.find({});
+    // res.status(200).send(result);
+    const count = await User.countDocuments(filter);
+    const { limit , offset } = calculateLimitAndOffset(currentPage,(pageSize > 200 ? 200 : pageSize));
+    const users = await User.find(filter).limit(limit).skip(offset).sort([[sort, sortDirection]]);
+    const meta = paginate(currentPage, count, users, (pageSize > 200 ? 200 : pageSize ));
+    res.set(meta);
+    return res.send(users)
+
   } catch (err) {
-    res.status(404).send({
-      message: err.message,
-      status: 'failure',
-    });
+    throw boom.boomify(err);
   }
-};
-module.exports.deleteValue = deleteValue;
+});
+
+exports.addUser = wrapper(async (req, res) => {
+  try {
+ 
+    const {firstName,lastName,username,email,
+      password,confirmPassword,mobile,dataOfBirth,gender,address,country,state,city,pin} = req.body; // Use the User model to create a new user object
+      
+      const user = new User({userId : uuidv4(), firstName,lastName,username,email,
+        password,confirmPassword,mobile,dataOfBirth,gender,address,country,state,city,pin});
+  
+      await user.save(); // Wait for the user to be saved to the database
+      res.send(user); // Send the saved user object as the response
+    } catch (err) {
+      throw boom.boomify(err);
+    }
+});
+
+exports.deleteAllUser = wrapper(async (req, res) => {
+  try {
+    const users = await User.deleteMany({});
+    if(users.deletedCount > 0) console.log("Deleted" +users.deletedCount+ " users");
+      res.status(204).send("ALL Deleted"); // Send the saved user object as the response
+    } catch (err) {
+      throw boom.boomify(err); 
+    }
+});
+exports.getUserById = wrapper(async (req, res) => {
+  try {
+    const userSelectedId = req?.params?.userId;
+    const user = await User.findOne({userId: userSelectedId});
+
+    if(!user){
+      throw boom.notFound("No user found with that UserId");
+    }
+     return res.send(user);
+    } catch (err) {
+      throw boom.boomify(err); 
+    }
+});
+
+exports.updateUserById = wrapper(async (req, res) => {
+  try {
+    const userSelectedId = req?.params?.userId;
+    const user = await User.findOneAndUpdate({userId: userSelectedId});
+
+    if(!user){
+      throw boom.notFound("No user found with that UserId");
+    }
+
+     return res.send(user);
+    } catch (err) {
+      throw boom.boomify(err); 
+    }
+});
+exports.deleteUserById = wrapper(async (req, res) => {
+  try {
+    const userSelectedId = req?.params?.userId;
+    const user = await User.deleteOne({userId: userSelectedId});
+
+    if(user.deletedCount === 0){
+      throw boom.notFound("No user found with that UserId");
+    }
+     return res.status(204).send("deleted User");
+    } catch (err) {
+      throw boom.boomify(err); 
+    }
+});
+

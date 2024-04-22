@@ -8,6 +8,7 @@
 const Router = require('express');
 
 
+
 const router = Router();
 
 // import * as ctrlValue from '../controllers/user';
@@ -27,12 +28,50 @@ const ctrlValue = require('../controllers/user');
  *           schema:
  *             type: object
  *             properties:
- *               name:
+ *               firstName:
  *                 type: string
- *                 description: name of user
- *               gender:
+ *                 description: firstname of user
+ *               lastName:
+ *                 type: string
+ *                 description: lastname of user
+  *               username:
+ *                 type: string
+ *                 description: username of user
+ *               email:
+ *                 type: string
+ *                 description: email of user
+  *               password:
+ *                 type: string
+ *                 description: password of user
+ *               confirmPassword:
+ *                 type: string
+ *                 description: confirmPassword of user
+  *               mobile:
+ *                 type: number
+ *                 description: mobile no of user
+ *               dataOfBirth:
+ *                 type: string
+ *                 description: Dateofbirth of user
+  *               gender:
  *                 type: string
  *                 description: gender of user
+ *               address:
+ *                 type: string
+ *                 description: address of user
+  *               country:
+ *                 type: string
+ *                 description: country of user
+ *               state:
+ *                 type: string
+ *                 description: state of user
+ *               city:
+ *                 type: string
+ *                 description: city of user
+ *               pin:
+ *                 type: number
+ *                 description: pincode of user
+ * 
+ * 
  *     produces:
  *       - application/json
  *     responses:
@@ -74,6 +113,8 @@ router.post('/api/user', ctrlValue.addUser);
  *                   type: string
  */
 router.get('/api/user', ctrlValue.getUser);
+
+
 
 
 module.exports = router;

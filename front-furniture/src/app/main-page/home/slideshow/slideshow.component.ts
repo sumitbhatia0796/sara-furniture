@@ -13,8 +13,7 @@ export class SlideshowComponent implements OnInit, OnDestroy {
   constructor() { }
 
   ngOnInit(): void {
-    this.showSlides(1); // Show the first slide when component initializes
-     // Start auto sliding every 3 seconds
+
   }
   ngAfterViewInit() {
     this.showSlides(1);

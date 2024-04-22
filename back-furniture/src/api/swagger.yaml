@@ -1,0 +1,434 @@
+openapi: 3.0.0
+info:
+  title: Furniture Store
+  description: This is Furniture Shop Backend 
+  version: 0.1.9
+servers:
+  - url: /api/v1
+paths:
+  /users:
+    get:
+      tags:
+        - "User"
+      x-swagger-router-controller: user
+      operationId: getUser
+      summary: Returns a list of users.
+      description: Optional extended description in CommonMark or HTML.
+      parameters:
+        - name: currentPage
+          in: query
+          description: currentPage
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+        - name: pageSize
+          in: query
+          description: pageSize
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+        - name: sort
+          in: query
+          description: "sort column"
+          required: false
+          schema:
+            type: integer
+        - name: sortDirection
+          in: query
+          description: "sort i.e asc desc"
+          required: false
+          schema:
+            type: integer
+            enum: 
+              - asc
+              - desc                                   
+      responses:
+        '200':    # status code
+          description: Default Response
+          content:
+            application/json:
+              schema: 
+                $ref: "#/components/schemas/Users"
+    post: 
+      x-swagger-router-controller: user
+      operationId: addUser
+      summary: Register a new user.
+      tags:
+        - "User"      
+      description: Register a new user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                firstName:
+                  type: string
+                  example: sumit
+                lastName:
+                  type: string
+                  example: kumar
+                username:
+                  type: string
+                  example: sumit1234
+                email:
+                  type: string
+                  example: sumitbhatia0796@gmail.com
+                password:
+                  type: string
+                  example: sumit9876
+                confirmPassword:
+                  type: string
+                  example: sumit9876
+                mobile:
+                  type: string
+                  example: "7807465496"
+                  pattern: "^[0-9()+][0-9-() ]*[0-9]$"
+                  maxLength: 30
+                dataOfBirth:
+                  type: string
+                  example: 11-12-2001
+                gender:
+                  type: string
+                  example: male
+                address:
+                  type: string
+                  example: vill khaterwar teh bhoranj
+                country:
+                  type: string
+                  example: india
+                state:
+                  type: string
+                  example: Himachal Pardesh
+                city:
+                  type: string
+                  example: Hamirpur
+                pin:
+                  type: string 
+                  example: 176045 
+      responses: 
+        '200':
+          description: Created 
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"      
+    delete:
+      tags:
+        - "User"
+      x-swagger-router-controller: user
+      operationId: deleteAllUser
+      summary: Delete All Available User.
+      responses:
+        '204':    # status code
+          description: Default Response
+  /users/{userId}:
+    get:
+      tags:
+        - "User"
+      x-swagger-router-controller: user
+      operationId: getUserById
+      summary: Returns  user.
+      description: Optional extended description in CommonMark or HTML.
+      parameters:
+        - name: userId
+          in: path
+          description: userId
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':    # status code
+          description: Default Response
+          content:
+            application/json:
+              schema: 
+                $ref: "#/components/schemas/User"
+    patch: 
+      x-swagger-router-controller: user
+      operationId: updateUserById
+      summary: Register a new user.
+      tags:
+        - "User"      
+      description: Register a new user
+      parameters:
+        - name: userId
+          in: path
+          description: userId
+          required: false
+          schema:
+            type: string      
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                password:
+                  type: string
+                  example: sumit9876
+                confirmPassword:
+                  type: string
+                  example: sumit9876
+                mobile:
+                  type: string
+                  example: "7807465496"
+                  pattern: "^[0-9()+][0-9-() ]*[0-9]$"
+                  maxLength: 30
+                address:
+                  type: string
+                  example: vill khaterwar teh bhoranj
+                country:
+                  type: string
+                  example: india
+                state:
+                  type: string
+                  example: Himachal Pardesh
+                city:
+                  type: string
+                  example: Hamirpur
+                pin:
+                  type: string 
+                  example: 176045 
+      responses: 
+        '200':
+          description: Created 
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"      
+    delete:
+      tags:
+        - "User"
+      x-swagger-router-controller: user
+      operationId: deleteUserById
+      summary: Delete All Available User.
+      parameters:
+        - name: userId
+          in: path
+          description: userId
+          required: false
+          schema:
+            type: string        
+      responses:
+        '204':    # status code
+          description: Default Response
+  /productHome:
+      get:
+        tags:
+          - "ProductHome"
+        x-swagger-router-controller: productHome
+        operationId: getProductHome
+        summary: Returns a list of products.
+        parameters:
+          - name: currentPage
+            in: query
+            description: currentPage
+            required: false
+            schema:
+              type: integer
+              minimum: 1
+          - name: pageSize
+            in: query
+            description: pageSize
+            required: false
+            schema:
+              type: integer
+              minimum: 1
+          - name: sort
+            in: query
+            description: "sort column"
+            required: false
+            schema:
+              type: integer
+          - name: sortDirection
+            in: query
+            description: "sort i.e asc desc"
+            required: false
+            schema:
+              type: integer
+              enum: 
+                - asc
+                - desc                                   
+        responses:
+          '200':    # status code
+            description: Default Response
+            content:
+              application/json:
+                schema: 
+                  $ref: "#/components/schemas/ProductHomes"
+      post: 
+        x-swagger-router-controller: productHome
+        operationId: addProductHome
+        summary: Register a new productHome.
+        tags:
+          - "ProductHome"      
+        description: Register a new productHome
+        requestBody:
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  productName:
+                    type: string
+                    example: Door
+                  imageUrl:
+                    type: string
+                    example: sumit
+                  description:
+                    type: string
+                    example: good quality
+                  productCategory:
+                    type: string
+                    example: Doors
+        responses: 
+          '200':
+            description: Created 
+            content:
+              application/json:
+                schema:
+                  $ref: "#/components/schemas/ProductHome"      
+      delete:
+        tags:
+          - "ProductHome"
+        x-swagger-router-controller: producthome
+        operationId: deleteAllProductHome
+        summary: Delete All Available producthome.
+        responses:
+          '204':    # status code
+            description: Default Response
+  /productHome/{productHomeId}:
+    get:
+      tags:
+        - "ProductHome"
+      x-swagger-router-controller: productHome
+      operationId: getProductHomeById
+      summary: Returns  productHome.
+      parameters:
+        - name: productHomeId
+          in: path
+          description: productHomeId
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':    # status code
+          description: Default Response
+          content:
+            application/json:
+              schema: 
+                $ref: "#/components/schemas/ProductHome"
+    patch: 
+      x-swagger-router-controller: productHome
+      operationId: updateProductHomeById
+      summary: update in a productHome.
+      tags:
+        - "ProductHome"      
+      description: Register a new productHome
+      parameters:
+        - name: productHomeId
+          in: path
+          description: productHomeId
+          required: false
+          schema:
+            type: string      
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                productName:
+                  type: string
+                  example: Wooden door
+                imageUrl:
+                  type: string
+                  example: door.jpg
+                description:
+                  type: string
+                  example: Good quality
+                productCategory:
+                  type: string
+                  example: doors
+      responses: 
+        '200':
+          description: Created 
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProductHome"      
+    delete:
+      tags:
+        - "ProductHome"
+      x-swagger-router-controller: productHome
+      operationId: deleteProductHomeById
+      summary: Delete All Available productHome.
+      parameters:
+        - name: productHomeId
+          in: path
+          description: productHomeId
+          required: false
+          schema:
+            type: string        
+      responses:
+        '204':    # status code
+          description: Default Response           
+
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        firstName:
+          type: string
+          example: Anil      
+        lastName:
+          type: string
+          example: kumar 
+        username:
+          type: string
+          example: Anil34 
+        email:
+          type: string
+          example: anilbhatia34@gmail.com 
+        mobile:
+          type: string
+          example: Anil 
+        gender:
+          type: string
+          example: Anil 
+        country:
+          type: string
+          example: Anil 
+        city:
+          type: string
+          example: Anil 
+        address:
+          type: string
+          example: Anil    
+    Users:
+      type: array
+      items:
+        $ref: "#/components/schemas/User" 
+    ProductHome:
+      type: object
+      properties:
+        productName:
+          type: string
+          example: Door      
+        imageUrl:
+          type: string
+          example: doors.jpg 
+        description:
+          type: string
+          example: good quality 
+        productCategory:
+          type: string
+          example: Doors 
+    ProductHomes:
+      type: array
+      items:
+        $ref: "#/components/schemas/ProductHomes"                                                 

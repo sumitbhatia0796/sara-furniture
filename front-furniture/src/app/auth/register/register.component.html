@@ -21,7 +21,11 @@
               <div class="col">
                 <label>Email</label>
                 <input type="email" formControlName="email" class="form-control">
-                <div *ngIf="f.email.touched && f.email.errors" class="text-danger">{{ f.email.errors.required ? 'Enter valid Email ' : '' }}</div>
+                <!-- <div *ngIf="f.email.touched && f.email.errors" class="text-danger">{{ f.email.errors.required ? 'Enter valid Email ' : '' }}</div> -->
+                <div *ngIf="getFormControl('email').invalid && (getFormControl('email').dirty || getFormControl('email').touched)">
+                  <div  class="text-danger" *ngIf="getFormControl('email').errors.required" >Email is required.</div>
+                  <div class="text-danger" *ngIf="getFormControl('email').errors.email">Invalid email format.</div>
+                </div>
               </div>
 
               <div class="col">

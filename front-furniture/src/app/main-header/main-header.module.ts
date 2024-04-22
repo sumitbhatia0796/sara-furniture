@@ -4,7 +4,7 @@ import { HeaderComponent } from './header/header.component';
 import { MenuBarComponent } from './menu-bar/menu-bar.component';
 import { AuthModule } from '../auth/auth.module';
 import { RouterModule } from '@angular/router';
-
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -16,7 +16,8 @@ import { RouterModule } from '@angular/router';
   imports: [
     CommonModule,
     AuthModule,
-    RouterModule
+    RouterModule,
+    FormsModule
   ],
   exports :[
     HeaderComponent,
