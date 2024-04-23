@@ -9,11 +9,11 @@
   <div id="content" class="my-5">
     <div id="filterbar" [ngClass]="{'collapse': isFilterBarCollapsed}">
       <div class="box border-bottom">
-        
+
         <div class="form-group">
           <label for="category">Category:</label>
           <select class="form-control" id="category" [(ngModel)]="selectedCategory" (change)="oneChangeCat()">
-            <option value="">All</option>
+            <option default value="">All</option>
             <option *ngFor="let category of categories" [value]="category.categories">{{ category.categories }}</option>
           </select>
         </div>
@@ -27,124 +27,127 @@
         </div>
         <div class="form-group">
           <label for="brand">Brand:</label>
-          <select class="form-control" id="brand" [(ngModel)]="selectedBrand" >
+          <select class="form-control" id="brand" [(ngModel)]="selectedBrand">
             <option value="">All</option>
             <option *ngFor="let brand of brands" [value]="brand">{{ brand }}</option>
           </select>
         </div>
-          <label class="price" for="priceRange">Price Range:</label>
-          <div class="input-container">
-            <input type="text" placeholder="min-value">
-            <input type="text" placeholder="max-value">
-          </div>
-
-
-
-          <!-- <label class="price" for="priceRange">Price Range:</label>
-          <input type="range" class="custom-range" min="0" max="100" value="0" step="1" (input)="onPriceRangeChange($event)">
-          <div class="price-range-values">
-            <span class="min-price">Min: {{ priceRange[0] }}</span>
-            <span class="max-price">Max: {{ priceRange[1] }}</span>
-          </div> -->
+        <label class="price" for="priceRange">Price Range:</label>
+        <div class="input-container">
+          <input type= "number" [(ngModel)]="minValue"  placeholder="₹0">
+          <input type="number" [(ngModel)]="maxValue" placeholder="₹200000">
         </div>
-        <div class="form-group text-center">
-          <div class="btn-group" data-toggle="buttons">
-            <button class="btn btn-success form-check-label active" (click)="applyFilter()"> Apply </button>
-          </div>
+
+      </div>
+      <div class="form-group text-center">
+        <div class="btn-group" data-toggle="buttons">
+          <button class="btn btn-success form-check-label active" (click)="applyFilter()"> Apply </button>
         </div>
-        
-        
-        
       </div>
 
 
+
     </div>
-    <div id="products">
-      <div class="row mx-0">
-        <div class="col-lg-4 col-md-6">
-          <div class="card d-flex flex-column ">
-            <div class="card-img"> <img src="assets/door.webp" alt=""> </div>
-            <div class="product-name text-center">Engineered Wood King Box Bed  (Finish Color - Natural Teak, Delivery Condition - Knock Down)</div>
-            <p class=" constraints"><b>₹</b> 7500 </p>
-            <p class=" constraints "><b>Avalability:</b> yes</p>
-            <p class=" constraints"><b>Quantity:</b>50</p>
-          
-           
-              <div class="" data-toggle="buttons">
-                <button class="btn btn-success form-check-label explore-btn" (click)="viewProductDetails()"> View Details </button>
-              </div>
+
+
+  </div>
+  <div id="products">
+    <div class="row mx-0">
+      <div class="col-lg-4 col-md-6">
+        <div class="card d-flex flex-column ">
+          <div class="card-img"> <img src="assets/door.webp" alt=""> </div>
+          <div class="product-name text-center">Engineered Wood King Box Bed (Finish Color - Natural Teak, Delivery
+            Condition - Knock Down)</div>
+          <p class=" constraints">₹7500 </p>
+          <p class=" constraints ">Avalability: yes</p>
+          <p class=" constraints">Quantity:50</p>
+
+
+          <div class="" data-toggle="buttons">
+            <button class="btn btn-success form-check-label explore-btn" (click)="viewProductDetails()"> View Details
+            </button>
           </div>
         </div>
-        <div class="col-lg-4 col-md-6">
-          <div class="card d-flex flex-column ">
-            <div class="card-img"> <img src="assets/door.webp" alt=""> </div>
-            <div class="product-name text-center">Engineered Wood King Box Bed  (Finish Color - Natural Teak, Delivery Condition - Knock Down)</div>
-            <p class=" constraints"><b>₹</b> 7500 </p>
-            <p class=" constraints "><b>Avalability:</b> yes</p>
-            <p class=" constraints"><b>Quantity:</b>50</p>
-          
-           
-              <div class="" data-toggle="buttons">
-                <button class="btn btn-success form-check-label explore-btn" (click)="viewProductDetails()"> View Details </button>
-              </div>
+      </div>
+      <div class="col-lg-4 col-md-6">
+        <div class="card d-flex flex-column ">
+          <div class="card-img"> <img src="assets/door.webp" alt=""> </div>
+          <div class="product-name text-center">Engineered Wood King Box Bed (Finish Color - Natural Teak, Delivery
+            Condition - Knock Down)</div>
+          <p class=" constraints">₹7500 </p>
+          <p class=" constraints ">Avalability: yes</p>
+          <p class=" constraints">Quantity:50</p>
+
+
+          <div class="" data-toggle="buttons">
+            <button class="btn btn-success form-check-label explore-btn" (click)="viewProductDetails()"> View Details
+            </button>
           </div>
         </div>
-        <div class="col-lg-4 col-md-6">
-          <div class="card d-flex flex-column ">
-            <div class="card-img"> <img src="assets/door.webp" alt=""> </div>
-            <div class="product-name text-center">Engineered Wood King Box Bed  (Finish Color - Natural Teak, Delivery Condition - Knock Down)</div>
-            <p class=" constraints"><b>₹</b> 7500 </p>
-            <p class=" constraints "><b>Avalability:</b> yes</p>
-            <p class=" constraints"><b>Quantity:</b>50</p>
-          
-           
-              <div class="" data-toggle="buttons">
-                <button class="btn btn-success form-check-label explore-btn" (click)="viewProductDetails()"> View Details </button>
-              </div>
+      </div>
+      <div class="col-lg-4 col-md-6">
+        <div class="card d-flex flex-column ">
+          <div class="card-img"> <img src="assets/door.webp" alt=""> </div>
+          <div class="product-name text-center">Engineered Wood King Box Bed (Finish Color - Natural Teak, Delivery
+            Condition - Knock Down)</div>
+          <p class=" constraints">₹7500 </p>
+          <p class=" constraints ">Avalability: yes</p>
+          <p class=" constraints">Quantity:50</p>
+
+          <div class="" data-toggle="buttons">
+            <button class="btn btn-success form-check-label explore-btn" (click)="viewProductDetails()"> View Details
+            </button>
           </div>
         </div>
-        <div class="col-lg-4 col-md-6">
-          <div class="card d-flex flex-column ">
-            <div class="card-img"> <img src="assets/door.webp" alt=""> </div>
-            <div class="product-name text-center">Engineered Wood King Box Bed  (Finish Color - Natural Teak, Delivery Condition - Knock Down)</div>
-            <p class=" constraints"><b>₹</b> 7500 </p>
-            <p class=" constraints "><b>Avalability:</b> yes</p>
-            <p class=" constraints"><b>Quantity:</b>50</p>
-          
-           
-              <div class="" data-toggle="buttons">
-                <button class="btn btn-success form-check-label explore-btn" (click)="viewProductDetails()"> View Details </button>
-              </div>
+      </div>
+      <div class="col-lg-4 col-md-6">
+        <div class="card d-flex flex-column ">
+          <div class="card-img"> <img src="assets/door.webp" alt=""> </div>
+          <div class="product-name text-center">Engineered Wood King Box Bed (Finish Color - Natural Teak, Delivery
+            Condition - Knock Down)</div>
+          <p class=" constraints">₹7500 </p>
+          <p class=" constraints ">Avalability: yes</p>
+          <p class=" constraints">Quantity:50</p>
+
+
+          <div class="" data-toggle="buttons">
+            <button class="btn btn-success form-check-label explore-btn" (click)="viewProductDetails()"> View Details
+            </button>
           </div>
         </div>
-        <div class="col-lg-4 col-md-6">
-          <div class="card d-flex flex-column ">
-            <div class="card-img"> <img src="assets/door.webp" alt=""> </div>
-            <div class="product-name text-center">Engineered Wood King Box Bed  (Finish Color - Natural Teak, Delivery Condition - Knock Down)</div>
-            <p class=" constraints"><b>₹</b> 7500 </p>
-            <p class=" constraints "><b>Avalability:</b> yes</p>
-            <p class=" constraints"><b>Quantity:</b>50</p>
-          
-           
-              <div class="" data-toggle="buttons">
-                <button class="btn btn-success form-check-label explore-btn" (click)="viewProductDetails()"> View Details </button>
-              </div>
+      </div>
+      <div class="col-lg-4 col-md-6">
+        <div class="card d-flex flex-column ">
+          <div class="card-img"> <img src="assets/door.webp" alt=""> </div>
+          <div class="product-name text-center">Engineered Wood King Box Bed (Finish Color - Natural Teak, Delivery
+            Condition - Knock Down)</div>
+          <p class=" constraints">₹7500 </p>
+          <p class=" constraints ">Avalability: yes</p>
+          <p class=" constraints">Quantity:50</p>
+
+
+          <div class="" data-toggle="buttons">
+            <button class="btn btn-success form-check-label explore-btn" (click)="viewProductDetails()"> View Details
+            </button>
           </div>
         </div>
-        <div class="col-lg-4 col-md-6">
-          <div class="card d-flex flex-column ">
-            <div class="card-img"> <img src="assets/door.webp" alt=""> </div>
-            <div class="product-name text-center">Engineered Wood King Box Bed  (Finish Color - Natural Teak, Delivery Condition - Knock Down)</div>
-            <p class=" constraints"><b>₹</b> 7500 </p>
-            <p class=" constraints "><b>Avalability:</b> yes</p>
-            <p class=" constraints"><b>Quantity:</b>50</p>
-          
-           
-              <div class="" data-toggle="buttons">
-                <button class="btn btn-success form-check-label explore-btn" (click)="viewProductDetails()"> View Details </button>
-              </div>
+      </div>
+      <div class="col-lg-4 col-md-6">
+        <div class="card d-flex flex-column ">
+          <div class="card-img"> <img src="assets/door.webp" alt=""> </div>
+          <div class="product-name text-center">Engineered Wood King Box Bed (Finish Color - Natural Teak, Delivery
+            Condition - Knock Down)</div>
+          <p class=" constraints">₹7500 </p>
+          <p class=" constraints ">Avalability: yes</p>
+          <p class=" constraints">Quantity:50</p>
+
+
+          <div class="" data-toggle="buttons">
+            <button class="btn btn-success form-check-label explore-btn" (click)="viewProductDetails()"> View Details
+            </button>
           </div>
         </div>
       </div>
     </div>
   </div>
+</div>

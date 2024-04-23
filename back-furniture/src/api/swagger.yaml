@@ -216,90 +216,90 @@ paths:
         '204':    # status code
           description: Default Response
   /productHome:
-      get:
-        tags:
-          - "ProductHome"
-        x-swagger-router-controller: productHome
-        operationId: getProductHome
-        summary: Returns a list of products.
-        parameters:
-          - name: currentPage
-            in: query
-            description: currentPage
-            required: false
+    get:
+      tags:
+        - "ProductHome"
+      x-swagger-router-controller: productHome
+      operationId: getProductHome
+      summary: Returns a list of products.
+      parameters:
+        - name: currentPage
+          in: query
+          description: currentPage
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+        - name: pageSize
+          in: query
+          description: pageSize
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+        - name: sort
+          in: query
+          description: "sort column"
+          required: false
+          schema:
+            type: integer
+        - name: sortDirection
+          in: query
+          description: "sort i.e asc desc"
+          required: false
+          schema:
+            type: integer
+            enum: 
+              - asc
+              - desc                                   
+      responses:
+        '200':    # status code
+          description: Default Response
+          content:
+            application/json:
+              schema: 
+                $ref: "#/components/schemas/ProductHomes"
+    post: 
+      x-swagger-router-controller: productHome
+      operationId: addProductHome
+      summary: Register a new productHome.
+      tags:
+        - "ProductHome"      
+      description: Register a new productHome
+      requestBody:
+        content:
+          application/json:
             schema:
-              type: integer
-              minimum: 1
-          - name: pageSize
-            in: query
-            description: pageSize
-            required: false
-            schema:
-              type: integer
-              minimum: 1
-          - name: sort
-            in: query
-            description: "sort column"
-            required: false
-            schema:
-              type: integer
-          - name: sortDirection
-            in: query
-            description: "sort i.e asc desc"
-            required: false
-            schema:
-              type: integer
-              enum: 
-                - asc
-                - desc                                   
-        responses:
-          '200':    # status code
-            description: Default Response
-            content:
-              application/json:
-                schema: 
-                  $ref: "#/components/schemas/ProductHomes"
-      post: 
-        x-swagger-router-controller: productHome
-        operationId: addProductHome
-        summary: Register a new productHome.
-        tags:
-          - "ProductHome"      
-        description: Register a new productHome
-        requestBody:
+              type: object
+              properties:
+                productName:
+                  type: string
+                  example: Door
+                imageUrl:
+                  type: string
+                  example: sumit
+                description:
+                  type: string
+                  example: good quality
+                productCategory:
+                  type: string
+                  example: Doors
+      responses: 
+        '200':
+          description: Created 
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  productName:
-                    type: string
-                    example: Door
-                  imageUrl:
-                    type: string
-                    example: sumit
-                  description:
-                    type: string
-                    example: good quality
-                  productCategory:
-                    type: string
-                    example: Doors
-        responses: 
-          '200':
-            description: Created 
-            content:
-              application/json:
-                schema:
-                  $ref: "#/components/schemas/ProductHome"      
-      delete:
-        tags:
-          - "ProductHome"
-        x-swagger-router-controller: producthome
-        operationId: deleteAllProductHome
-        summary: Delete All Available producthome.
-        responses:
-          '204':    # status code
-            description: Default Response
+                $ref: "#/components/schemas/ProductHome"      
+    delete:
+      tags:
+        - "ProductHome"
+      x-swagger-router-controller: producthome
+      operationId: deleteAllProductHome
+      summary: Delete All Available producthome.
+      responses:
+        '204':    # status code
+          description: Default Response
   /productHome/{productHomeId}:
     get:
       tags:
@@ -377,6 +377,481 @@ paths:
         '204':    # status code
           description: Default Response           
 
+  /product:
+    get:
+      tags:
+        - "Product"
+      x-swagger-router-controller: product
+      operationId: getProduct
+      summary: Returns a list of products.
+      parameters:
+        - name: currentPage
+          in: query
+          description: currentPage
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+        - name: pageSize
+          in: query
+          description: pageSize
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+        - name: sort
+          in: query
+          description: "sort column"
+          required: false
+          schema:
+            type: integer
+        - name: sortDirection
+          in: query
+          description: "sort i.e asc desc"
+          required: false
+          schema:
+            type: integer
+            enum: 
+              - asc
+              - desc                                   
+      responses:
+        '200':    # status code
+          description: Default Response
+          content:
+            application/json:
+              schema: 
+                $ref: "#/components/schemas/Products"
+    post: 
+      x-swagger-router-controller: product
+      operationId: addProduct
+      summary: Register a new product.
+      tags:
+        - "Product"      
+      description: Register a new productHome
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                productName:
+                  type: string
+                  example: Door
+                image:
+                  type: string
+                  example: sumit
+                description:
+                  type: string
+                  example: good quality
+                category:
+                  type: string
+                  example: Doors
+                price:
+                  type: number
+                  example: 233
+                homecategory:
+                  type: string
+                  example: bed
+                subcategory:
+                  type: string
+                  example: good quality
+                availability:
+                  type: boolean
+                  example: true
+                quantity:
+                  type: number
+                  example: 2
+                rating:
+                  type: number
+                  example: 4                                   
+      responses: 
+        '200':
+          description: Created 
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProductHome"      
+    delete:
+      tags:
+        - "Product"
+      x-swagger-router-controller: product
+      operationId: deleteAllProduct
+      summary: Delete All Available product.
+      responses:
+        '204':    # status code
+          description: Default Response
+  /product/{productId}:
+    get:
+      tags:
+        - "Product"
+      x-swagger-router-controller: product
+      operationId: getProductById
+      summary: Returns  product.
+      parameters:
+        - name: productId
+          in: path
+          description: productId
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':    # status code
+          description: Default Response
+          content:
+            application/json:
+              schema: 
+                $ref: "#/components/schemas/Product"
+    patch: 
+      x-swagger-router-controller: product
+      operationId: updateProductById
+      summary: update in a product.
+      tags:
+        - "Product"      
+      description: Register a new productHome
+      parameters:
+        - name: productId
+          in: path
+          description: productId
+          required: false
+          schema:
+            type: string      
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                productName:
+                  type: string
+                  example: Door
+                image:
+                  type: string
+                  example: sumit
+                description:
+                  type: string
+                  example: good quality
+                category:
+                  type: string
+                  example: Doors
+                price:
+                  type: number
+                  example: 1
+                homecategory:
+                  type: string
+                  example: bed
+                subcategory:
+                  type: string
+                  example: good quality
+                availability:
+                  type: boolean
+                  example: true
+                quantity:
+                  type: number
+                  example: 3
+                rating:
+                  type: number
+                  example: 4
+      responses: 
+        '200':
+          description: Created 
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Product"      
+    delete:
+      tags:
+        - "Product"
+      x-swagger-router-controller: product
+      operationId: deleteProductById
+      summary: Delete All Available product.
+      parameters:
+        - name: productId
+          in: path
+          description: productId
+          required: false
+          schema:
+            type: string        
+      responses:
+        '204':    # status code
+          description: Default Response   
+
+  /productDetail:
+    get:
+      tags:
+        - "ProductDetail"
+      x-swagger-router-controller: productDetail
+      operationId: getProductDetail
+      summary: Returns a list of productDetail.
+      parameters:
+        - name: currentPage
+          in: query
+          description: currentPage
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+        - name: pageSize
+          in: query
+          description: pageSize
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+        - name: sort
+          in: query
+          description: "sort column"
+          required: false
+          schema:
+            type: integer
+        - name: sortDirection
+          in: query
+          description: "sort i.e asc desc"
+          required: false
+          schema:
+            type: integer
+            enum: 
+              - asc
+              - desc                                   
+      responses:
+        '200':    # status code
+          description: Default Response
+          content:
+            application/json:
+              schema: 
+                $ref: "#/components/schemas/ProductDetails"
+    post: 
+      x-swagger-router-controller: productDetail
+      operationId: addProductDetail
+      summary: Register a new productDetail.
+      tags:
+        - "ProductDetail"      
+      description: Register a new productDetail
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                productName:
+                  type: string
+                  example: Door
+                productId:
+                  type: string
+                  example: sumit
+                description:
+                  type: string
+                  example: goodquality
+                category:
+                  type: string
+                  example: Doors
+                price:
+                  type: number
+                  example: 233
+                homeCategory:
+                  type: string
+                  example: bed
+                subcategory:
+                  type: string
+                  example: goodquality
+                availability:
+                  type: boolean
+                  example: true
+                quantity:
+                  type: number
+                  example: 2
+                rating:
+                  type: number
+                  example: 4
+                images:
+                  type: array
+                  items:
+                    type: string
+                  example:
+                    - bed
+                    - sofa 
+                assembly:
+                  type: string
+                  example: anything
+                brand:
+                  type: string
+                  example: SARA
+                material:
+                  type: string
+                  example: wooden
+                color:
+                  type: string
+                  example: brown
+                type:
+                  type: string
+                  example: bed
+                totalOrder:
+                  type: number
+                  example: 5
+                dimensionInInch:
+                  type: string
+                  example: 12in   
+                dimensionInCem:
+                  type: string
+                  example: 2cm
+                storage:
+                  type: string
+                  example: xyz
+                weight:
+                  type: string
+                  example: 40KG.
+                warranty:
+                  type: number
+                  example: 2                                     
+      responses: 
+        '200':
+          description: Created 
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProductDetail"      
+    delete:
+      tags:
+        - "ProductDetail"
+      x-swagger-router-controller: productDetail
+      operationId: deleteAllProductDetail
+      summary: Delete All Available productDetail.
+      responses:
+        '204':    # status code
+          description: Default Response
+  /productDetail/{productDetailId}:
+    get:
+      tags:
+        - "ProductDetail"
+      x-swagger-router-controller: productDetail
+      operationId: getProductDetailById
+      summary: Returns  productDetail.
+      parameters:
+        - name: productDetailId
+          in: path
+          description: productDetailId
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':    # status code
+          description: Default Response
+          content:
+            application/json:
+              schema: 
+                $ref: "#/components/schemas/ProductDetail"
+    patch: 
+      x-swagger-router-controller: productDetail
+      operationId: updateProductDetailById
+      summary: update in a productDetail.
+      tags:
+        - "ProductDetail"      
+      description: Register a new productDetail
+      parameters:
+        - name: productDetailId
+          in: path
+          description: productDetailId
+          required: false
+          schema:
+            type: string      
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                productName:
+                  type: string
+                  example: Door
+                productId:
+                  type: string
+                  example: sumit
+                description:
+                  type: string
+                  example: goodquality
+                category:
+                  type: string
+                  example: Doors
+                price:
+                  type: number
+                  example: 233
+                homeCategory:
+                  type: string
+                  example: bed
+                subcategory:
+                  type: string
+                  example: goodquality
+                availability:
+                  type: boolean
+                  example: true
+                quantity:
+                  type: number
+                  example: 2
+                rating:
+                  type: number
+                  example: 4
+                images:
+                  type: array
+                  items:
+                    type: string
+                  example:
+                    - bed
+                    - sofa 
+                assembly:
+                  type: string
+                  example: anything
+                brand:
+                  type: string
+                  example: SARA
+                material:
+                  type: string
+                  example: wooden
+                color:
+                  type: string
+                  example: brown
+                type:
+                  type: string
+                  example: bed
+                totalOrder:
+                  type: number
+                  example: 5
+                dimensionInInch:
+                  type: string
+                  example: 12in   
+                dimensionInCem:
+                  type: string
+                  example: 2cm
+                storage:
+                  type: string
+                  example: xyz
+                weight:
+                  type: string
+                  example: 40KG.
+                warranty:
+                  type: number
+                  example: 2
+      responses: 
+        '200':
+          description: Created 
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProductDetail"      
+    delete:
+      tags:
+        - "ProductDetail"
+      x-swagger-router-controller: productDetail
+      operationId: deleteProductDetailById
+      summary: Delete All Available product.
+      parameters:
+        - name: productDetailId
+          in: path
+          description: productDetailId
+          required: false
+          schema:
+            type: string        
+      responses:
+        '204':    # status code
+          description: Default Response  
 components:
   schemas:
     User:
@@ -432,3 +907,117 @@ components:
       type: array
       items:
         $ref: "#/components/schemas/ProductHomes"                                                 
+    Product:
+      type: object
+      properties:
+                productName:
+                  type: string
+                  example: Door
+                image:
+                  type: string
+                  example: sumit
+                description:
+                  type: string
+                  example: good quality
+                category:
+                  type: string
+                  example: Doors
+                price:
+                  type: number
+                  example: Door
+                homecategory:
+                  type: string
+                  example: bed
+                subcategory:
+                  type: string
+                  example: good quality
+                availability:
+                  type: string
+                  example: Doors
+                quantity:
+                  type: number
+                  example: good quality
+                rating:
+                  type: string
+                  example: Doors 
+    Products:
+      type: array
+      items:
+        $ref: "#/components/schemas/Product"  
+    ProductDetail:
+      type: object
+      properties:
+                productName:
+                  type: string
+                  example: Door
+                productId:
+                  type: string
+                  example: sumit
+                description:
+                  type: string
+                  example: goodquality
+                category:
+                  type: string
+                  example: Doors
+                price:
+                  type: number
+                  example: 233
+                homeCategory:
+                  type: string
+                  example: bed
+                subcategory:
+                  type: string
+                  example: goodquality
+                availability:
+                  type: boolean
+                  example: true
+                quantity:
+                  type: number
+                  example: 2
+                rating:
+                  type: number
+                  example: 4
+                images:
+                  type: array
+                  items:
+                    type: string
+                  example:
+                    - bed
+                    - sofa 
+                assembly:
+                  type: string
+                  example: anything
+                brand:
+                  type: string
+                  example: SARA
+                material:
+                  type: string
+                  example: wooden
+                color:
+                  type: string
+                  example: brown
+                type:
+                  type: string
+                  example: bed
+                totalOrder:
+                  type: number
+                  example: 5
+                dimensionInInch:
+                  type: string
+                  example: 12in   
+                dimensionInCem:
+                  type: string
+                  example: 2cm
+                storage:
+                  type: string
+                  example: xyz
+                weight:
+                  type: string
+                  example: 40KG.
+                warranty:
+                  type: number
+                  example: 2 
+    ProductDetails:
+      type: array
+      items:
+        $ref: "#/components/schemas/ProductDetail"          

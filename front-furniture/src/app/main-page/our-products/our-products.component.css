@@ -651,9 +651,6 @@ input[type=range]::-webkit-slider-thumb {
   padding: 2px;
 }
 
-b{
-  font-weight: 500;
-}
 .explore-btn{
   width: 109px;
   margin-left: 90px;
@@ -667,6 +664,9 @@ b{
     display: inline-block;
     width: 45%; 
     margin-right: 10px; 
+    margin-top: 10px;
     border-radius: 10px;
+    padding-left: 8px;
+   
   }
   

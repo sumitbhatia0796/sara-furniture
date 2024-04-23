@@ -7,11 +7,14 @@ import { Router } from '@angular/router';
   styleUrls: ['./our-products.component.css']
 })
 export class OurProductsComponent implements OnInit {
+isValidInput() {
+throw new Error('Method not implemented.');
+}
 
   
   showFilters: boolean = false;
-  minPrice: number = 0;
-  maxPrice =100000;
+  minPrice = 0;
+  maxPrice =200000;
   selectedCategory: string = '';
   selectedSubcategory: string = '';
   selectedBrand: string = '';
@@ -35,7 +38,10 @@ export class OurProductsComponent implements OnInit {
   filteredProducts: any[] = [];
   brands: any[] = []; // Define brand array
   subcategories: any; // Define subcategory array
-  categories:any;; // Define category array
+  categories:any;
+  minValue: number = 0; 
+  maxValue: number = 200000;
+; // Define category array
   constructor( private _router:Router) { }
   isFilterBarCollapsed: boolean = true;
   ngOnInit(): void {
@@ -58,8 +64,14 @@ export class OurProductsComponent implements OnInit {
   applyFilter() {
     let filterObj = {
       'category' : this.selectedCategory,
-      'subcategory': this.selectedSubcategory
+      'subcategory': this.selectedSubcategory,
+      'minValue' : this.minValue,
+      'maxValue' : this.maxValue,
+      'brand': this.selectedBrand
     }
+     
+    console.log(filterObj);
+    
   }
   toggleFilterBar() {
     this.isFilterBarCollapsed = !this.isFilterBarCollapsed;
