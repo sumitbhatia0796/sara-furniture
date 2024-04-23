@@ -8,4 +8,7 @@ import { SideBarComponent } from './side-navbar/side-bar/side-bar.component';
 })
 export class AppComponent {
   title = 'front-furniture';
+  constructor(){
+    localStorage.setItem("isloggedIn","false");
+  }
 }
