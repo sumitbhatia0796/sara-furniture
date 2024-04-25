@@ -5,6 +5,16 @@ info:
   version: 0.1.9
 servers:
   - url: /api/v1
+security:
+  - BearerAuth: []
+securityDefinitions:
+  BearerAuth:
+    type: apiKey
+    name: Authorization
+    in: header
+    description: Enter your Bearer token here
+consumes:
+  - application/json 
 paths:
   /users:
     get:
@@ -79,9 +89,6 @@ paths:
                 password:
                   type: string
                   example: sumit9876
-                confirmPassword:
-                  type: string
-                  example: sumit9876
                 mobile:
                   type: string
                   example: "7807465496"
@@ -146,6 +153,8 @@ paths:
             application/json:
               schema: 
                 $ref: "#/components/schemas/User"
+      security:
+        - authentication: []             
     patch: 
       x-swagger-router-controller: user
       operationId: updateUserById
@@ -167,9 +176,6 @@ paths:
               type: object
               properties:
                 password:
-                  type: string
-                  example: sumit9876
-                confirmPassword:
                   type: string
                   example: sumit9876
                 mobile:
@@ -215,6 +221,33 @@ paths:
       responses:
         '204':    # status code
           description: Default Response
+  /users/login:          
+    post: 
+      x-swagger-router-controller: user
+      operationId: loginUser
+      summary: Register a new user.
+      tags:
+        - "User"      
+      description: Register a new user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                  example: sumit1234
+                password:
+                  type: string
+                  example: sumit9876
+      responses: 
+        '200':
+          description: Created 
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Token"          
   /productHome:
     get:
       tags:
@@ -470,7 +503,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ProductHome"      
+                $ref: "#/components/schemas/Product"      
     delete:
       tags:
         - "Product"
@@ -841,7 +874,7 @@ paths:
         - "ProductDetail"
       x-swagger-router-controller: productDetail
       operationId: deleteProductDetailById
-      summary: Delete All Available product.
+      summary: Delete Available productDetailbyId.
       parameters:
         - name: productDetailId
           in: path
@@ -852,7 +885,211 @@ paths:
       responses:
         '204':    # status code
           description: Default Response  
+  /productDetail/ByProductID/{productId}:
+    get:
+      tags:
+        - "ProductDetail"
+      x-swagger-router-controller: productDetail
+      operationId: getProductDetailByProductId
+      summary: Returns  productDetail.
+      parameters:
+        - name: productId
+          in: path
+          description: productId
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':    # status code
+          description: Default Response
+          content:
+            application/json:
+              schema: 
+                $ref: "#/components/schemas/ProductDetail" 
+
+  /cart:
+    get:
+      tags:
+        - "cart"
+      x-swagger-router-controller: cart
+      operationId: getProductInCart
+      summary: Returns a list of products.
+      parameters:
+        - name: currentPage
+          in: query
+          description: currentPage
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+        - name: pageSize
+          in: query
+          description: pageSize
+          required: false
+          schema:
+            type: integer
+            minimum: 1
+        - name: sort
+          in: query
+          description: "sort column"
+          required: false
+          schema:
+            type: integer
+        - name: sortDirection
+          in: query
+          description: "sort i.e asc desc"
+          required: false
+          schema:
+            type: integer
+            enum: 
+              - asc
+              - desc                                   
+      responses:
+        '200':    # status code
+          description: Default Response
+          content:
+            application/json:
+              schema: 
+                $ref: "#/components/schemas/carts"
+    post: 
+      x-swagger-router-controller: cart
+      operationId: addProductInCart
+      summary: Register a new productInCart.
+      tags:
+        - "cart"      
+      description: Register a new productInCart
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                productName:
+                  type: string
+                  example: Door
+                image:
+                  type: string
+                  example: xyz
+                price:
+                  type: number
+                  example: 233
+                quantitySelected:
+                  type: number
+                  example: 2
+                brand:
+                  type: string
+                  example: sara   
+                productId:
+                  type: string
+                  example: sfsfs
+                productDetailId:
+                  type: string
+                  example: dadsfs   
+                userId:
+                  type: string
+                  example: dadsfs                                                                   
+      responses: 
+        '200':
+          description: Created 
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/cart"      
+    delete:
+      tags:
+        - "cart"
+      x-swagger-router-controller: cart
+      operationId: deleteAllProductInCart
+      summary: Delete All Available product.
+      responses:
+        '204':    # status code
+          description: Default Response
+  /cart/{cartId}:
+    get:
+      tags:
+        - "cart"
+      x-swagger-router-controller: cart
+      operationId: getProductInCartById
+      summary: Returns  product.
+      parameters:
+        - name: cartId
+          in: path
+          description: cartId
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':    # status code
+          description: Default Response
+          content:
+            application/json:
+              schema: 
+                $ref: "#/components/schemas/cart"
+    patch: 
+      x-swagger-router-controller: cart
+      operationId: updateProductInCartById
+      summary: update in a product.
+      tags:
+        - "cart"      
+      description: Update a new productInCart
+      parameters:
+        - name: cartId
+          in: path
+          description: cartId
+          required: false
+          schema:
+            type: string      
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                productName:
+                  type: string
+                  example: Door
+                image:
+                  type: string
+                  example: xyz
+                price:
+                  type: number
+                  example: 233
+                quantitySelected:
+                  type: number
+                  example: 2
+                brand:
+                  type: string
+                  example: sara  
+      responses: 
+        '200':
+          description: Created 
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/cart"      
+    delete:
+      tags:
+        - "cart"
+      x-swagger-router-controller: cart
+      operationId: deleteProductInCartById
+      summary: Delete All Available productInCart.
+      parameters:
+        - name: cartId
+          in: path
+          description: cartId
+          required: false
+          schema:
+            type: string        
+      responses:
+        '204':    # status code
+          description: Default Response                         
 components:
+  securitySchemes:
+    BearerAuth:
+      type: apiKey
+      name: Authorization
+      in: header
+      description: Enter your Bearer token here
   schemas:
     User:
       type: object
@@ -1020,4 +1257,41 @@ components:
     ProductDetails:
       type: array
       items:
-        $ref: "#/components/schemas/ProductDetail"          
+        $ref: "#/components/schemas/ProductDetail" 
+    Token:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Anil 
+        token:
+          type: string
+          example: wwqewqereffssadweweewrasdsadasd    
+    cart:
+      type: object
+      properties:
+                productName:
+                  type: string
+                  example: Door
+                image:
+                  type: string
+                  example: xyz
+                price:
+                  type: number
+                  example: 233
+                quantitySelected:
+                  type: number
+                  example: 2
+                brand:
+                  type: string
+                  example: sara  
+                productId:
+                  type: string
+                  example: sfsfs
+                productDetailId:
+                  type: string
+                  example: dadsfs                    
+    carts:
+      type: array
+      items:
+        $ref: "#/components/schemas/cart"                 

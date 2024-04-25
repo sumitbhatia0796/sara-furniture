@@ -2,6 +2,7 @@ const pjson = require('./../../package.json');
 module.exports = {
 
     env: cleanString(process.env.NODE_ENV, "test"),
+    secretKey: cleanString(process.env.secretKey,'secretKey') ,
     db: {
         useSSL: cleanBoolean(process.env.DB_ATLAS, false),
         host: cleanString(process.env.DB_HOST, 'localhost'),

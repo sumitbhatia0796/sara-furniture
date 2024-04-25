@@ -79,7 +79,7 @@ exports.getProductDetailById = wrapper(async (req, res) => {
 exports.updateProductDetailById = wrapper(async (req, res) => {
   try {
     const productDetailSelectedId = req?.params?.productDetailId;
-    const productDetail = await Product.findOne({productDetailId : productDetailSelectedId});
+    const productDetail = await ProductDetail.findOne({productDetailId : productDetailSelectedId});
     if (!productDetail) {
       throw boom.notFound("No product found with that productId");
     }
@@ -126,5 +126,18 @@ exports.deleteProductDetailById = wrapper(async (req, res) => {
     }
 });
 
+exports.getProductDetailByProductId = wrapper(async (req, res) => {
+  try {
+    const productDetailSelectedId = req?.params?.productId;
+    const productDetail = await ProductDetail.findOne({productId: productDetailSelectedId});
+
+    if(!productDetail){
+      throw boom.notFound("No product found with that productId");
+    }
+     return res.send(productDetail);
+    } catch (err) {
+      throw boom.boomify(err); 
+    }
+});
 
 

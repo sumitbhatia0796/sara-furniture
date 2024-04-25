@@ -3,7 +3,9 @@
  const { v4:uuidv4 } = require('uuid') ;
  const boom = require("@hapi/boom");
  const {calculateLimitAndOffset, paginate } = require ('paginate-info');
-
+ const { verifyToken } = require('../utils/utils')
+ const jwt = require("jsonwebtoken");
+ const options = require("../config/options");
  const wrapper = fn =>(req,res,next) =>{
   Promise.resolve(fn(req,res,next)).catch((err)=>{
     if(!err.isBoom){
@@ -12,8 +14,18 @@
   })
  }
 
- exports.getProduct = wrapper(async (req, res) => {
+ exports.getProduct = wrapper(async (req, res,next) => {
+
   try {
+
+    verifyToken(req, res, () => {
+      jwt.verify(req.token, options.secretKey,(err,authData)=>{
+       if(err){
+        return res.status(401).json({ error: 'Invalid Token' });
+      }
+      })
+   });
+
     let filter = {};
     const currentPage = req.query.currentPage || '1';
     const pageSize = req.query.pageSize || '50';
@@ -29,7 +41,7 @@
     return res.send(productDetail)
 
   } catch (err) {
-    throw boom.boomify(err);
+    return next(err);
   }
 });
 

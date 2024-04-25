@@ -1,43 +1,28 @@
-<section class="py-5">
+<section class="py-5" *ngIf="productDetails">
   <div class="container">
     <div class="row gx-5">
       <aside class="col-lg-6">
         <div class="border rounded-4 mb-3 d-flex justify-content-center">
           <a data-fslightbox="mygalley" class="rounded-4" target="_blank" data-type="image"
-            href="assets/product-details-images/abc.png">
+            [href]="intialImgUrl + productDetails.images[0]">
             <img style="max-width: 100%; max-height: 100vh; margin: auto;" class="rounded-4 fit"
-              src="assets/product-details-images/abc.png" />
+            [src]="intialImgUrl + productDetails.images[0]" />
           </a>
         </div>
         <div class="d-flex justify-content-center mb-3">
           <a data-fslightbox="mygalley" class="border mx-1 rounded-2" target="_blank" data-type="image"
-            href="assets/product-details-images/abc1.png" class="item-thumb">
-            <img width="60" height="60" class="rounded-2" src="assets/product-details-images/abc1.png" />
-          </a>
-          <a data-fslightbox="mygalley" class="border mx-1 rounded-2" target="_blank" data-type="image"
-            href="assets/product-details-images/abc3.png" class="item-thumb">
-            <img width="60" height="60" class="rounded-2" src="assets/product-details-images/abc3.png" />
-          </a>
-          <a data-fslightbox="mygalley" class="border mx-1 rounded-2" target="_blank" data-type="image"
-            href="assets/product-details-images/abc4.png" class="item-thumb">
-            <img width="60" height="60" class="rounded-2" src="assets/product-details-images/abc4.png" />
-          </a>
-          <a data-fslightbox="mygalley" class="border mx-1 rounded-2" target="_blank" data-type="image"
-            href="assets/product-details-images/abc5.png" class="item-thumb">
-            <img width="60" height="60" class="rounded-2" src="assets/product-details-images/abc5.png" />
-          </a>
-          <a data-fslightbox="mygalley" class="border mx-1 rounded-2" target="_blank" data-type="image"
-            href="assets/product-details-images/abc6.png" class="item-thumb">
-            <img width="60" height="60" class="rounded-2" src="assets/product-details-images/abc6.png" />
+            [href]="intialImgUrl + data" class="item-thumb" *ngFor="let data of productDetails?.images">
+            <img width="60" height="60" class="rounded-2" [src]="intialImgUrl + data" />
           </a>
         </div>
+        
         <!-- thumbs-wrap.// -->
         <!-- gallery-wrap .end// -->
       </aside>
       <main class="col-lg-6">
         <div class="ps-lg-3">
           <h4 class="title text-dark">
-            SARA Queen Size Bed in Walnut Finish
+            {{productDetails.productName}}
           </h4>
           <div class="d-flex flex-row my-3">
             <div class="text-warning mb-1 me-2">
@@ -47,33 +32,31 @@
               <i class="fa fa-star"></i>
               <i class="fas fa-star-half-alt"></i>
               <span class="ms-1">
-                4.5
+                {{productDetails.rating}}
               </span>
             </div>
-            <span class="text-muted"><i class="fas fa-shopping-basket fa-sm mx-1"></i>154 orders</span>
+            <span class="text-muted"><i class="fas fa-shopping-basket fa-sm mx-1"></i>{{productDetails.totalOrder}} order</span>
             <span class="text-success ms-2">In stock</span>
           </div>
 
           <div class="mb-3">
-            <span class="h5">₹14,099</span>
+            <span class="h5">₹{{productDetails.price}}</span>
           </div>
 
-          <p>
-            Elevate your bedroom with the SARA Queen Size Bed in Walnut Finish. Sleek, durable, and effortlessly stylish. Perfect for a restful night's sleep. Shop now!
-          </p>
+          <p>{{productDetails.description}}</p>
 
           <div class="row">
             <dt class="col-3">Type:</dt>
-            <dd class="col-9">Queen</dd>
+            <dd class="col-9">{{productDetails.type}}</dd>
 
             <dt class="col-3">Color</dt>
-            <dd class="col-9">Walnut Brown</dd>
+            <dd class="col-9">{{productDetails.color}}</dd>
 
             <dt class="col-3">Material</dt>
-            <dd class="col-9">Playwood and wooden</dd>
+            <dd class="col-9">{{productDetails.material}}</dd>
 
             <dt class="col-3">Brand</dt>
-            <dd class="col-9">SARA</dd>
+            <dd class="col-9">{{productDetails.brand}}</dd>
           </div>
 
           <hr />
@@ -97,7 +80,7 @@
             </div>
           </div>
           <a href="#" class="btn btn-warning shadow-0"> Buy now </a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-          <a href="#" class="btn btn-primary shadow-0"> <i class="me-1 fa fa-shopping-basket"></i> Add to cart
+          <a href="/cart" class="btn btn-primary shadow-0"> <i class="me-1 fa fa-shopping-basket"></i> Add to cart
           </a>&nbsp;
         </div>
       </main>
@@ -154,19 +137,27 @@
               <div class="row">
               <div class="col-6">
                 <span class="detailsLabel">Dimensions (in Inches)</span><br>
-                <span class="detailsValue">H 35.5 x W 63 x D 81.5</span>
+                <span class="detailsValue">{{productDetails?.dimensionInInch}}</span>
               </div>
               <div class="col-6">
-                <span class="detailsLabel">Dimensions (in Inches)</span><br>
-                <span class="detailsValue">H 35.5 x W 63 x D 81.5</span>
+                <span class="detailsLabel">Dimensions (cm)</span><br>
+                <span class="detailsValue">{{productDetails?.dimensionInCem}}</span>
               </div>
               <div class="col-6">
-                <span class="detailsLabel">Dimensions (in Inches)</span><br>
-                <span class="detailsValue">H 35.5 x W 63 x D 81.5</span>
+                <span class="detailsLabel">Assembly</span><br>
+                <span class="detailsValue">{{productDetails?.assembly}}</span>
               </div>
               <div class="col-6">
-                <span class="detailsLabel">Dimensions (in Inches)</span><br>
-                <span class="detailsValue">H 35.5 x W 63 x D 81.5</span>
+                <span class="detailsLabel">Weight</span><br>
+                <span class="detailsValue">{{productDetails?.weight}}</span>
+              </div>
+              <div class="col-6">
+                <span class="detailsLabel">warranty</span><br>
+                <span class="detailsValue">{{productDetails?.warranty}}</span>
+              </div>
+              <div class="col-6">
+                <span class="detailsLabel">Storage</span><br>
+                <span class="detailsValue">{{productDetails?.storage}}</span>
               </div>
               </div>
             </div>

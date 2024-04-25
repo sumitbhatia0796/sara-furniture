@@ -1,5 +1,6 @@
 import { Component, OnInit, inject } from '@angular/core';
 import { Router } from '@angular/router';
+import { CommonServiceService } from 'src/app/services/common-service.service';
 
 @Component({
   selector: 'app-our-products',
@@ -10,7 +11,6 @@ export class OurProductsComponent implements OnInit {
 isValidInput() {
 throw new Error('Method not implemented.');
 }
-
   
   showFilters: boolean = false;
   minPrice = 0;
@@ -41,18 +41,24 @@ throw new Error('Method not implemented.');
   categories:any;
   minValue: number = 0; 
   maxValue: number = 200000;
+  intialImgUrl = './../../assets/product/';
+
 ; // Define category array
-  constructor( private _router:Router) { }
+  constructor( private _router:Router, private CommonServiceService: CommonServiceService) { }
   isFilterBarCollapsed: boolean = true;
+  product:any | undefined;
+
   ngOnInit(): void {
     this.toggleFilterBar();
-    // Initialize filter options
-    // this.brands = [...new Set(this.products.map(product => product.brand))];
-    // this.subcategories = [...new Set(this.products.map(product => product.subcategory))];
-    // this.categories = [...new Set(this.products.map(product => product.category))];
-    // console.log(this.subcategories);
-
-    // Initially, display all products
+    this.CommonServiceService.productLists().subscribe((res:any)=>{ 
+      if(!!res){
+        this.product = res
+        console.log(this.product);
+      } else {
+         alert("error while fetching home product");
+      }
+      
+     })
     this.subcategories = [{ subcategories: 'door1'},{ subcategories: 'bed1'}]; // Define subcategory array
     this.categories = [{ categories: 'door'},{ categories: 'bed'}]; // Define category array
     this.filteredProducts = this.products;
@@ -79,28 +85,13 @@ throw new Error('Method not implemented.');
   outerFilter(){
 
   }
-//  priceRange: number[] = [0, 200000]; // Set the initial price range
-//   maxSliderValue: number = 100; // Maximum value of the slider
-
-// onPriceRangeChange(event: Event) {
-//   const sliderValue = parseInt((event.target as HTMLInputElement).value); // Get the slider value
-//   const maxValue = 200000; // Set the maximum value of the price range
-
-//   // Calculate the corresponding price range based on the slider value
-//   const step = maxValue / this.maxSliderValue; // Calculate the step value for the slider
-//   const minPrice = sliderValue * step;
-//   const maxPrice = maxValue - ((this.maxSliderValue - sliderValue) * step);
-
-//   // Update the price range array
-//   this.priceRange = [minPrice, maxPrice];
-//   console.log(this.priceRange)
-// }
 oneChangePR(e:any){
   console.log(e);
   this.maxPrice = this.priceRange
 }
-viewProductDetails(){
-  this._router.navigate(['/product-details'])
+viewProductDetails(id:string){
+  console.log(id)
+  this._router.navigate(['/product-details'], {queryParams: {id:id}})
   
 }
 oneChangeCat(){

@@ -10,6 +10,7 @@ import { OurProductsComponent } from './main-page/our-products/our-products.comp
 import { HomeComponent } from './main-page/home/home.component';
 import { authguardGuard } from './authguard.guard';
 import { ProductDetailsComponent } from './main-page/our-products/product-details/product-details.component';
+import { CartComponent } from './main-header/header/cart/cart.component';
 
 const routes: Routes = [
   
@@ -21,6 +22,7 @@ const routes: Routes = [
   { path: 'about-us', component: AboutUsComponent },
   { path: 'our-products', component:OurProductsComponent},
   { path: 'product-details', component:ProductDetailsComponent},
+  {path:  'cart' , component:CartComponent},
 
   { path: '**', redirectTo: 'home', pathMatch: 'full' },
 

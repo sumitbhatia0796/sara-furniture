@@ -3,6 +3,9 @@
  const { v4:uuidv4 } = require('uuid') ;
  const boom = require("@hapi/boom");
  const {calculateLimitAndOffset, paginate } = require ('paginate-info');
+ const { verifyToken } = require('../utils/utils')
+ const jwt = require("jsonwebtoken");
+ const options = require("../config/options");
 
  const wrapper = fn =>(req,res,next) =>{
   Promise.resolve(fn(req,res,next)).catch((err)=>{
@@ -12,8 +15,17 @@
   })
  }
 
- exports.getProductHome = wrapper(async (req, res) => {
+ exports.getProductHome = wrapper(async (req, res,next) => {
   try {
+
+    verifyToken(req, res, () => {
+       jwt.verify(req.token, options.secretKey,(err,authData)=>{
+        if(err){
+          return res.status(401).json({ error: 'Invalid Token' });
+        }
+       })
+    });
+
     let filter = {};
     const currentPage = req.query.currentPage || '1';
     const pageSize = req.query.pageSize || '50';
@@ -29,7 +41,7 @@
     return res.send(productHome)
 
   } catch (err) {
-    throw boom.boomify(err);
+    return next(err);
   }
 });
 
@@ -73,22 +85,17 @@ exports.getProductHomeById = wrapper(async (req, res) => {
 exports.updateProductHomeById = wrapper(async (req, res) => {
   try {
     const productHomeSelectedId = req?.params?.productHomeId;
-
-    const update = {
-      productName: req?.body?.productName,
-      imageUrl: req?.body?.imageUrl,
-      description: req?.body?.description,
-      productCategory: req?.body?.productCategory,
-    };
-    const productHome = await ProductHome.findOneAndUpdate({
-      productHomeId: productHomeSelectedId,
-    }, update);
-
+    const productHome = await ProductHome.findOne({productHomeId : productHomeSelectedId});
     if (!productHome) {
       throw boom.notFound("No product found with that productId");
     }
-
-    return res.send(productHome);
+    if(!!req.body.productName) productHome.productName = req.body.productName;
+    if(!!req.body.imageUrl) productHome.imageUrl = req.body.imageUrl;
+    if(!!req.body.description) productHome.description = req.body.description;
+    if(!!req.body.productCategory) productHome.productCategory = req.body.productCategory;
+   
+    let productHomeUpdate = await productHome.save();
+    return res.send(productHomeUpdate);
   } catch (err) {
     throw boom.boomify(err);
   }
