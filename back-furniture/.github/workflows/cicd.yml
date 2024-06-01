@@ -11,7 +11,7 @@ jobs:
     steps:
       - name: Checkout source
         uses: actions/checkout@v4
-        
+
       - name: Create .env file
         run: |
           echo "DB_USERNAME=${{ secrets.DB_USERNAME }}" >> .env
@@ -41,3 +41,4 @@ jobs:
 
       - name: Run Docker container
         run: docker run -d -p 3000:3000 --name nodejs-app-container sumitbhatia0796/sara-furniture:latest
+
