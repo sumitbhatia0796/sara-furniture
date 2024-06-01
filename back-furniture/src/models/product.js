@@ -12,7 +12,8 @@ subcategory: {type: String,required: true},
 availability: {type: Boolean,required: true},
 quantity: {type: Number,required: true},
 image: {type: String ,required: true},
-rating: {type: Number,required: false}
+rating: {type: Number,required: false},
+brand: {type: String ,required: true},
 });
  
 const productModel = mongoose.model("Product", productSchema);

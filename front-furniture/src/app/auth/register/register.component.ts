@@ -14,6 +14,17 @@ export class RegisterComponent implements OnInit {
   cities: string[] = ['hamirpur', 'bilaspur']; 
   countries: string[] = ['India', 'China', 'USA']
 
+  passwordVisible: boolean = false;
+  confirmPasswordVisible: boolean = false;
+  errorMessage: string = '';
+
+togglePasswordVisibility(): void {
+  this.passwordVisible = !this.passwordVisible;
+}
+
+toggleConfirmPasswordVisibility(): void {
+  this.confirmPasswordVisible = !this.confirmPasswordVisible;
+}
   constructor(private formBuilder: FormBuilder, private CommonServiceService: CommonServiceService,
     private router: Router
   ) { 
@@ -44,6 +55,13 @@ export class RegisterComponent implements OnInit {
       pin: ['', Validators.required],
       
     });
+
+  }
+
+  passwordsMatch(): boolean {
+    const password = this.registerForm.get('password').value;
+    const confirmPassword = this.registerForm.get('confirmPassword').value;
+    return password === confirmPassword;
   }
   // Convenience getter for easy access to form fields
   get f() { return this.registerForm.controls; }
@@ -79,7 +97,18 @@ export class RegisterComponent implements OnInit {
         // Handle error or display appropriate message
         console.error('Error occurred while saving user');
     }
+    },
+    (error) => {
+      if (error && error.error && error.error.message) {
+        this.errorMessage = error.error.message; // Assuming your API returns an error message
+      } else {
+        this.errorMessage = 'An error occurred. Please try again later.'; // Default error message
+      }
     })
+
+    setTimeout(() => {
+      this.errorMessage='';
+    }, 10000);
   }
   resetForm(){
     this.registerForm.resetForm()

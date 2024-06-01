@@ -17,7 +17,7 @@
     <img [src]="intialImgUrl + data.imageUrl" alt="Wooden Door">
     <h2>{{data?.productName}}</h2>
     <p>{{data?.description}}</p>
-    <button (click)="getSelectedCategoryProduct(data.productCategory)">View more</button>
+    <button (click)="getSelectedCategoryProduct(data?.productCategory)">View more</button>
   </div>
 </div>
   

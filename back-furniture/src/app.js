@@ -9,6 +9,7 @@ const fs = require('fs');
 const path  = require('path');
 const options = require("./config/options");
 const  mongoose  = require('mongoose');
+const { verifyToken } = require('./utils/utils')
 
 const app = express();
 
@@ -30,7 +31,9 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 app.use(helmet());
-app.use(express.static(__dirname + '/src/public'));
+
+// Serve static files
+app.use(express.static(path.join(__dirname, 'dist/front-furniture')));
 
 const swaggerDocument = yaml.load(fs.readFileSync(path.join(__dirname,'/api/swagger.yaml'),'utf8'))
 
@@ -45,17 +48,16 @@ initialize({
   app,
   apiDoc: `${__dirname}/api/swagger.yaml`,
   operations: require('./controllers/operations'),
-  validateApiDoc: false
+  validateApiDoc: false,
+  swaggerSecurity: {
+    Bearer: verifyToken
+  }
 })
 
-/* Routes */
-// const valueRoutes = require('./routes/user');
-// const productHomeRoutes = require('./routes/productHome');
-// const productRoutes = require('./routes/product');
-
-// app.use('/', valueRoutes);
-// app.use('/', productHomeRoutes);
-// app.use('/', productRoutes);
+app.use((err, req, res, next) => {
+  console.error(err); // Log the error for debugging purposes
+  res.status(500).json({ message: err.message }); // Send error message in response
+});
 
 let dbAuth =''; let dbConfig ='';
 if(!!DB_USERNAME && !!DB_PASSWORD){

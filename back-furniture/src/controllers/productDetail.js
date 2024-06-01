@@ -21,6 +21,9 @@
     const sortDirection = req.query.sortDirection || 'asc';
     // const result = await User.find({});
     // res.status(200).send(result);
+    if(!!req.query.filter){
+      filter = JSON.parse(req.query.filter); 
+   }
     const count = await ProductDetail.countDocuments(filter);
     const { limit , offset } = calculateLimitAndOffset(currentPage,(pageSize > 200 ? 200 : pageSize));
     const productDetail = await ProductDetail.find(filter).limit(limit).skip(offset).sort([[sort, sortDirection]]);
@@ -79,7 +82,7 @@ exports.getProductDetailById = wrapper(async (req, res) => {
 exports.updateProductDetailById = wrapper(async (req, res) => {
   try {
     const productDetailSelectedId = req?.params?.productDetailId;
-    const productDetail = await Product.findOne({productDetailId : productDetailSelectedId});
+    const productDetail = await ProductDetail.findOne({productDetailId : productDetailSelectedId});
     if (!productDetail) {
       throw boom.notFound("No product found with that productId");
     }
@@ -126,5 +129,18 @@ exports.deleteProductDetailById = wrapper(async (req, res) => {
     }
 });
 
+exports.getProductDetailByProductId = wrapper(async (req, res) => {
+  try {
+    const productDetailSelectedId = req?.params?.productId;
+    const productDetail = await ProductDetail.findOne({productId: productDetailSelectedId});
+
+    if(!productDetail){
+      throw boom.notFound("No product found with that productId");
+    }
+     return res.send(productDetail);
+    } catch (err) {
+      throw boom.boomify(err); 
+    }
+});
 
 

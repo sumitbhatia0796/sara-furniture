@@ -8,7 +8,6 @@ const userSchema = new mongoose.Schema({
   username: {type: String, required: true},
   email: {type: String, required: true},
   password:{type: String, required: true},
-  confirmPassword: {type: String, required: true},
   mobile: {type: String, required: true},
   dataOfBirth: {type: String, required: true},
   gender: {type: String, required: true},
@@ -18,6 +17,7 @@ const userSchema = new mongoose.Schema({
   city:{type: String, required: true},
   pin: {type: String, required: true},
   createdDateAt: { type: Date, default: Date.now },
+  userType: {type: String, default: "customer"},
 });
  
 const userModel = mongoose.model("User", userSchema);

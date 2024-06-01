@@ -9,8 +9,7 @@
     font-weight: bold;
 }
 
-/* Styles for custom range sliders */
-/* .form-group {
+ .form-group {
   margin-bottom: 20px;
 }
 
@@ -39,7 +38,7 @@ input[type="range"]::-moz-range-track {
   height: 10px;
   border-radius: 5px;
   background-color: #ddd;
-} */
+} 
 @import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 
 * {
@@ -82,7 +81,7 @@ button.btn.btn-hide {
  .btn:focus {
     box-shadow: none
 }
-/*
+
 .box-label .btn {
     background-color: #fff;
     padding: 0;
@@ -185,7 +184,7 @@ select {
     background-color: #f90;
     color: #fff
 }
-/* 
+ 
 label {
     cursor: pointer
 }
@@ -345,8 +344,7 @@ label {
 .card-img img {
     /* padding-top: 10px; */
     width: inherit;
-    height: 150px;
-    object-fit: contain;
+    
     display: block
 }
 
@@ -396,7 +394,7 @@ label {
     border: none
 }
 
-/* #avail-size .btn.btn-success {
+ #avail-size .btn.btn-success {
     background-color: #ddd;
     color: #333;
     border: none;
@@ -430,9 +428,9 @@ label {
     position: relative;
     width: 100%;
     margin-top: 25px
-} */
+} 
 
-/* .slider {
+ .slider {
     position: relative;
     z-index: 1;
     height: 5px;
@@ -580,7 +578,7 @@ input[type=range]::-webkit-slider-thumb {
     .pagination {
         display: none
     }
-} */
+} 
 
 .box {
   padding: 15px
@@ -669,4 +667,24 @@ input[type=range]::-webkit-slider-thumb {
     padding-left: 8px;
    
   }
+
+  .card {
+    height: 100%; /* Ensures each card has equal height */
+  }
+  
+  .card .card-img {
+    height: 200px; /* Set a fixed height for the image container */
+    overflow: hidden; /* Hide overflow to prevent image from overflowing */
+  }
+  
+  .card .card-img img {
+    width: 100%; /* Make sure the image fills its container */
+    height: auto; /* Allow the image to maintain its aspect ratio */
+  }
+  
+  .product-name,
+  .constraints {
+    margin-bottom: 10px; /* Add some space between elements */
+  }
+ 
   

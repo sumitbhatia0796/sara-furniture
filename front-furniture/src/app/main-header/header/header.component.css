@@ -56,4 +56,27 @@
   color: white; /* Adjust hover color */
 }
 
+.fa-shopping-cart {
+  margin: 0px 5px;
+  margin-left: 70px;
+}
 
+.cart-count {
+  position: absolute;
+  top: 6px; /* Adjust vertical position */
+  right: 352px; /* Adjust horizontal position */
+  background-color: #f00; /* Adjust background color */
+  color: white; /* Adjust text color */
+  border-radius: 50%; /* Make it a circle */
+  padding: 2px 8px; /* Adjust padding */
+  font-size: 12px; /* Adjust font size */
+}
+/* Media query for smaller screens */
+@media screen and (max-width: 768px) {
+  .cart-count {
+    top: 6px; /* Adjust vertical position for smaller screens */
+    right: 352px; /* Adjust horizontal position for smaller screens */
+    font-size: 10px; /* Adjust font size for smaller screens */
+    padding: 3px 6px; /* Adjust padding for smaller screens */
+  }
+}
