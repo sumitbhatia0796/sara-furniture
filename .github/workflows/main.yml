@@ -1,0 +1,44 @@
+name: Deploy Node Application
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+
+      - name: Create .env file
+        run: |
+          echo "DB_USERNAME=${{ secrets.DB_USERNAME }}" >> .env
+          echo "DB_PASSWORD=${{ secrets.DB_PASSWORD }}" >> .env
+          echo "DB_NAME=${{ secrets.DB_NAME }}" >> .env
+          echo "DB_HOST=${{ secrets.DB_HOST }}" >> .env
+          echo "DB_ATLAS=${{ secrets.DB_ATLAS }}" >> .env
+
+      - name: Log in to Docker Hub
+        run: echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
+
+      - name: Build Docker image
+        run: docker build -t sumitbhatia0796/sara-furniture .
+
+      - name: Publish image to Docker Hub
+        run: docker push sumitbhatia0796/sara-furniture:latest
+
+  deploy:
+    needs: build
+    runs-on: self-hosted
+    steps:
+      - name: Pull image from Docker Hub
+        run: docker pull sumitbhatia0796/sara-furniture:latest
+
+      - name: Delete old container
+        run: docker rm -f nodejs-app-container
+
+      - name: Run Docker container
+        run: docker run -d -p 3000:3000 --name nodejs-app-container sumitbhatia0796/sara-furniture:latest
+
