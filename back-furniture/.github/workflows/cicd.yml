@@ -20,6 +20,11 @@ jobs:
           echo "DB_HOST=${{ secrets.DB_HOST }}" >> .env
           echo "DB_ATLAS=${{ secrets.DB_ATLAS }}" >> .env
 
+      - name: Configure Docker to use GitHub Actions credential helper
+        run: |
+          mkdir -p ~/.docker
+          echo '{"credsStore": "actions"}' > ~/.docker/config.json
+
       - name: Log in to Docker Hub
         run: echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
 
@@ -41,4 +46,3 @@ jobs:
 
       - name: Run Docker container
         run: docker run -d -p 3000:3000 --name nodejs-app-container sumitbhatia0796/sara-furniture:latest
-
