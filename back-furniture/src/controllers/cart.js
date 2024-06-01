@@ -18,14 +18,14 @@
 
   try {
 
-    verifyToken(req, res, () => {
-        jwt.verify(req.token, options.secretKey,(err,authData)=>{
-            if (err) {
-                // Sending an error response when token is invalid
-                return res.status(401).json({ error: 'Invalid Token' });
-              }
-        })
-     });
+    // verifyToken(req, res, () => {
+    //     jwt.verify(req.token, options.secretKey,(err,authData)=>{
+    //         if (err) {
+    //             // Sending an error response when token is invalid
+    //             return res.status(401).json({ error: 'Invalid Token' });
+    //           }
+    //     })
+    //  });
 
     let filter = {};
     const currentPage = req.query.currentPage || '1';
@@ -34,6 +34,9 @@
     const sortDirection = req.query.sortDirection || 'asc';
     // const result = await User.find({});
     // res.status(200).send(result);
+    if(!!req.query.filter){
+       filter = JSON.parse(req.query.filter); 
+    }
     const count = await Cart.countDocuments(filter);
     const { limit , offset } = calculateLimitAndOffset(currentPage,(pageSize > 200 ? 200 : pageSize));
     const cart = await Cart.find(filter).limit(limit).skip(offset).sort([[sort, sortDirection]]);
@@ -49,14 +52,14 @@
 exports.addProductInCart = wrapper(async (req, res,next) => {
   try {
 
-    verifyToken(req, res, () => {
-        jwt.verify(req.token, options.secretKey,(err,authData)=>{
-            if (err) {
-                // Sending an error response when token is invalid
-                return res.status(401).json({ error: 'Invalid Token' });
-              }
-        })
-     });
+    // verifyToken(req, res, () => {
+    //     jwt.verify(req.token, options.secretKey,(err,authData)=>{
+    //         if (err) {
+    //             // Sending an error response when token is invalid
+    //             return res.status(401).json({ error: 'Invalid Token' });
+    //           }
+    //     })
+    //  });
     const {
         productName,price,quantitySelected,image,brand,productId,productDetailId,userId
     } = req.body; // Use the User model to create a new user object
@@ -118,20 +121,20 @@ exports.updateProductInCartById = wrapper(async (req, res, next) => {
 exports.deleteProductInCartById = wrapper(async (req, res, next) => {
   try {
 
-    verifyToken(req, res, () => {
-        jwt.verify(req.token, options.secretKey,(err,authData)=>{
-         if(err){
-           res.send("Invalid Token")
-         }
-        })
-     });
+    // verifyToken(req, res, () => {
+    //     jwt.verify(req.token, options.secretKey,(err,authData)=>{
+    //      if(err){
+    //        res.send("Invalid Token")
+    //      }
+    //     })
+    //  });
     const cartSelectedId = req?.params?.cartId;
     const cart = await Cart.deleteOne({cartId: cartSelectedId});
 
     if(cart.deletedCount === 0){
       throw boom.notFound("No Cart found with that CartId");
     }
-     return res.status(204).send("deleted Cart Cart By Id");
+     return res.send({message: 'Item Deleted'});
     } catch (err) {
         return next(err);
     }

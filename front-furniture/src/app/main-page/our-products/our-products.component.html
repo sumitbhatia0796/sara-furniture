@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container" *ngIf="showProduct">
   <div class="bg-white rounded d-flex align-items-center justify-content-between" id="header">
     <button class="btn btn-hide text-uppercase" type="button" (click)="toggleFilterBar()">
       <span class="fas" [ngClass]="{'fa-angle-left': !isFilterBarCollapsed, 'fa-angle-right': isFilterBarCollapsed}"
@@ -70,4 +70,7 @@
       </div>
     </div>
   </div>
+</div>
+<div class="container" *ngIf="!showProduct">
+   <h1>No product Avaialble</h1>
 </div>

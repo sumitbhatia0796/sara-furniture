@@ -12,10 +12,12 @@ import { HttpClientModule } from  '@angular/common/http';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSliderModule } from '@angular/material/slider';
+import { GlobalLoaderComponent } from './global-loader/global-loader.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    GlobalLoaderComponent
   ],
   imports: [
     BrowserModule,

@@ -19,8 +19,8 @@ export class ApiServiceService {
     });
   }
 
-  get(url: string): Observable<any> {
-    return this.http.get(`${this.Root_URL}/api/v1/${url}`, { headers: this.getHeaders() });
+  get(url: string, params?: any): Observable<any> {
+    return this.http.get(`${this.Root_URL}/api/v1/${url}`, { headers: this.getHeaders() , params: params});
   }
 
   post(url: string, payload: object): Observable<any> {

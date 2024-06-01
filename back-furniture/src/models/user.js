@@ -17,6 +17,7 @@ const userSchema = new mongoose.Schema({
   city:{type: String, required: true},
   pin: {type: String, required: true},
   createdDateAt: { type: Date, default: Date.now },
+  userType: {type: String, default: "customer"},
 });
  
 const userModel = mongoose.model("User", userSchema);

@@ -21,6 +21,9 @@
     const sortDirection = req.query.sortDirection || 'asc';
     // const result = await User.find({});
     // res.status(200).send(result);
+    if(!!req.query.filter){
+      filter = JSON.parse(req.query.filter); 
+   }
     const count = await ProductDetail.countDocuments(filter);
     const { limit , offset } = calculateLimitAndOffset(currentPage,(pageSize > 200 ? 200 : pageSize));
     const productDetail = await ProductDetail.find(filter).limit(limit).skip(offset).sort([[sort, sortDirection]]);

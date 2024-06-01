@@ -23,11 +23,10 @@ export class CommonServiceService {
     return this.ApiServiceService.post('users',data)
   }
   homeProducts(){
-    //send request to save the user 
     return this.ApiServiceService.get('productHome')
   }
-  productLists(){
-    return this.ApiServiceService.get('product')
+  productLists(filterParams: any): Observable<any>{
+    return this.ApiServiceService.get('product',filterParams);
   }
   
   productDetail(id:string){
@@ -35,11 +34,19 @@ export class CommonServiceService {
     const productUrl = `productDetail/ByProductID/${id}`
     return this.ApiServiceService.get(productUrl);
   }
-  cartList(){
-    return this.ApiServiceService.get('cart');
+  cartList(filterParams: any): Observable<any>{
+
+    return this.ApiServiceService.get('cart', filterParams);
   }
 
-
+  addItemToCart(data:object){
+    return this.ApiServiceService.post('cart',data)
+  }
+  removeItemToCart(id:string){
+    console.log(id);
+    const cartId = `cart/${id}`
+    return this.ApiServiceService.delete(cartId);
+  }
   login(username: string, token: string): void {
     // Store user information in local storage
     localStorage.setItem('name', username);

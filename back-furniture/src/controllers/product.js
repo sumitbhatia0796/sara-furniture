@@ -18,13 +18,13 @@
 
   try {
 
-    verifyToken(req, res, () => {
-      jwt.verify(req.token, options.secretKey,(err,authData)=>{
-       if(err){
-        return res.status(401).json({ error: 'Invalid Token' });
-      }
-      })
-   });
+  //   verifyToken(req, res, () => {
+  //     jwt.verify(req.token, options.secretKey,(err,authData)=>{
+  //      if(err){
+  //       return res.status(401).json({ error: 'Invalid Token' });
+  //     }
+  //     })
+  //  });
 
     let filter = {};
     const currentPage = req.query.currentPage || '1';
@@ -33,6 +33,9 @@
     const sortDirection = req.query.sortDirection || 'asc';
     // const result = await User.find({});
     // res.status(200).send(result);
+    if(!!req.query.filter){
+      filter = JSON.parse(req.query.filter); 
+   }
     const count = await Product.countDocuments(filter);
     const { limit , offset } = calculateLimitAndOffset(currentPage,(pageSize > 200 ? 200 : pageSize));
     const productDetail = await Product.find(filter).limit(limit).skip(offset).sort([[sort, sortDirection]]);
@@ -48,12 +51,12 @@
 exports.addProduct = wrapper(async (req, res) => {
   try {
     const {
-      productName,description,price,homecategory,category,subcategory,availability,quantity,image,rating
+      productName,description,price,homecategory,category,subcategory,availability,quantity,image,rating,brand
     } = req.body; // Use the User model to create a new user object
 
     const product = new Product({
       productId: uuidv4(),
-      productName,description,price,homecategory,category,subcategory,availability,quantity,image,rating
+      productName,description,price,homecategory,category,subcategory,availability,quantity,image,rating,brand
     });
 
     await product.save(); // Wait for the user to be saved to the database
@@ -105,6 +108,7 @@ exports.updateProductById = wrapper(async (req, res) => {
     if(!!req.body.quantity) product.quantity = req.body.quantity;
     if(!!req.body.image) product.image = req.body.image;
     if(!!req.body.rating) product.rating = req.body.rating;
+    if(!!req.body.brand) product.brand = req.body.brand;
 
     let productUpdate = await product.save();
     return res.send(productUpdate);
@@ -128,3 +132,30 @@ exports.deleteProductById = wrapper(async (req, res) => {
 
 
 
+exports.getFilteredProduct = wrapper(async (req, res,next) => {
+
+  try {
+
+  //   verifyToken(req, res, () => {
+  //     jwt.verify(req.token, options.secretKey,(err,authData)=>{
+  //      if(err){
+  //       return res.status(401).json({ error: 'Invalid Token' });
+  //     }
+  //     })
+  //  });
+
+    let filter = {};
+    if(!!req.body.productFilter){
+      filter = req.body.productFilter
+   }
+    
+   let pipe =[{
+      $match: filter
+   }];
+    const productDetail = await Product.aggregate(pipe);
+    return res.send(productDetail)
+
+  } catch (err) {
+    return next(err);
+  }
+});

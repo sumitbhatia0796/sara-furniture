@@ -18,13 +18,13 @@
  exports.getProductHome = wrapper(async (req, res,next) => {
   try {
 
-    verifyToken(req, res, () => {
-       jwt.verify(req.token, options.secretKey,(err,authData)=>{
-        if(err){
-          return res.status(401).json({ error: 'Invalid Token' });
-        }
-       })
-    });
+    // verifyToken(req, res, () => {
+    //    jwt.verify(req.token, options.secretKey,(err,authData)=>{
+    //     if(err){
+    //       return res.status(401).json({ error: 'Invalid Token' });
+    //     }
+    //    })
+    // });
 
     let filter = {};
     const currentPage = req.query.currentPage || '1';
@@ -33,6 +33,9 @@
     const sortDirection = req.query.sortDirection || 'asc';
     // const result = await User.find({});
     // res.status(200).send(result);
+    if(!!req.query.filter){
+      filter = JSON.parse(req.query.filter); 
+   }
     const count = await ProductHome.countDocuments(filter);
     const { limit , offset } = calculateLimitAndOffset(currentPage,(pageSize > 200 ? 200 : pageSize));
     const productHome = await ProductHome.find(filter).limit(limit).skip(offset).sort([[sort, sortDirection]]);

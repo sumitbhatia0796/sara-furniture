@@ -24,6 +24,9 @@ exports.getUser = wrapper(async (req, res) => {
     const sortDirection = req.query.sortDirection || "asc";
     // const result = await User.find({});
     // res.status(200).send(result);
+    if(!!req.query.filter){
+      filter = JSON.parse(req.query.filter); 
+   }
     const count = await User.countDocuments(filter);
     const { limit, offset } = calculateLimitAndOffset(
       currentPage,
@@ -49,7 +52,7 @@ exports.getUser = wrapper(async (req, res) => {
 exports.addUser = wrapper(async (req, res) => {
   try {
     const { firstName, lastName, username,email, password, mobile, dataOfBirth, gender, address,
-      country,state,city,  pin,
+      country,state,city,  pin,userType
     } = req.body;
 
     // Check if username or email is already registered
@@ -66,7 +69,7 @@ exports.addUser = wrapper(async (req, res) => {
     const hashedPassword = await hasPass(password);
     const user = new User({
       userId: uuidv4(),firstName,lastName,username,email,password: hashedPassword, mobile,dataOfBirth,
-      gender,address,country, state,city,pin,
+      gender,address,country, state,city,pin,userType
     });
     
     await user.save(); // Wait for the user to be saved to the database
@@ -105,15 +108,30 @@ exports.getUserById = wrapper(async (req, res) => {
 exports.updateUserById = wrapper(async (req, res) => {
   try {
     const userSelectedId = req?.params?.userId;
-    const user = await User.findOneAndUpdate({ userId: userSelectedId });
-
+    const user = await User.findOne({userId : userSelectedId});
     if (!user) {
-      throw boom.notFound("No user found with that UserId");
+      throw boom.notFound("No user found with that userId");
     }
-   
-    return res.send(user);
+    const hashedPassword = await hasPass(req.body.password);
+    if(!!req.body.firstName) user.firstName = req.body.firstName;
+    if(!!req.body.lastName) user.lastName = req.body.lastName;
+    if(!!req.body.username) user.username = req.body.username;
+    if(!!req.body.email) user.email = req.body.email;
+    if(!!req.body.password) user.password = hashedPassword;
+    if(!!req.body.mobile) user.mobile = req.body.mobile;
+    if(!!req.body.dataOfBirth) user.dataOfBirth = req.body.dataOfBirth;
+    if(!!req.body.gender) user.gender = req.body.gender;
+    if(!!req.body.address) user.address = req.body.address;
+    if(!!req.body.country) user.country = req.body.country;
+    if(!!req.body.state) user.state = req.body.state;
+    if(!!req.body.city) user.city = req.body.city;
+    if(!!req.body.pin) user.pin = req.body.pin;
+    if(!!req.body.userType) user.userType = req.body.userType;
+
+    let userUpdate = await user.save();
+    return res.send(userUpdate);
   } catch (err) {
-    throw boom.boomify(err);
+    return next(err);
   }
 });
 exports.deleteUserById = wrapper(async (req, res) => {
@@ -148,7 +166,7 @@ exports.loginUser = wrapper(async (req, res, next) => {
       password: password
     };
     let name = user?.firstName + " " + user?.lastName
-    const token = jwt.sign(payload, options.secretKey, { expiresIn: "3000s" });
+    const token = jwt.sign(payload, options.secretKey, { expiresIn: "172800s" });
     
     res.json({
       token: token,

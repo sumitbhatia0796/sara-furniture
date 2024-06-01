@@ -53,7 +53,13 @@ paths:
             type: integer
             enum: 
               - asc
-              - desc                                   
+              - desc 
+        - name: filter
+          in: query
+          description: 'JSON Filter, example: { "name": "xyz"}'
+          required: false
+          schema:
+            type: string                                                
       responses:
         '200':    # status code
           description: Default Response
@@ -115,6 +121,9 @@ paths:
                 pin:
                   type: string 
                   example: 176045 
+                userType:
+                  type: string 
+                  example: xyz                   
       responses: 
         '200':
           description: Created 
@@ -198,6 +207,9 @@ paths:
                 pin:
                   type: string 
                   example: 176045 
+                userType:
+                  type: string 
+                  example: xyz                    
       responses: 
         '200':
           description: Created 
@@ -284,7 +296,13 @@ paths:
             type: integer
             enum: 
               - asc
-              - desc                                   
+              - desc 
+        - name: filter
+          in: query
+          description: 'JSON Filter, example: { "name": "xyz"}'
+          required: false
+          schema:
+            type: string                                                
       responses:
         '200':    # status code
           description: Default Response
@@ -446,7 +464,13 @@ paths:
             type: integer
             enum: 
               - asc
-              - desc                                   
+              - desc 
+        - name: filter
+          in: query
+          description: 'JSON Filter, example: { "name": "xyz"}'
+          required: false
+          schema:
+            type: string 
       responses:
         '200':    # status code
           description: Default Response
@@ -496,7 +520,10 @@ paths:
                   example: 2
                 rating:
                   type: number
-                  example: 4                                   
+                  example: 4  
+                brand:
+                  type: string
+                  example: SARA                                                    
       responses: 
         '200':
           description: Created 
@@ -584,6 +611,9 @@ paths:
                 rating:
                   type: number
                   example: 4
+                brand:
+                  type: string
+                  example: SARA                  
       responses: 
         '200':
           description: Created 
@@ -607,6 +637,29 @@ paths:
       responses:
         '204':    # status code
           description: Default Response   
+
+  /product/filterProduct:
+    post:
+      tags:
+        - "Product"
+      x-swagger-router-controller: product
+      operationId: getFilteredProduct
+      summary: Returns a list of filter products.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                productFilter:
+                  type: object
+      responses:
+        '200':    # status code
+          description: Default Response
+          content:
+            application/json:
+              schema: 
+                $ref: "#/components/schemas/Products"
 
   /productDetail:
     get:
@@ -644,7 +697,13 @@ paths:
             type: integer
             enum: 
               - asc
-              - desc                                   
+              - desc  
+        - name: filter
+          in: query
+          description: 'JSON Filter, example: { "name": "xyz"}'
+          required: false
+          schema:
+            type: string                                               
       responses:
         '200':    # status code
           description: Default Response
@@ -943,7 +1002,13 @@ paths:
             type: integer
             enum: 
               - asc
-              - desc                                   
+              - desc 
+        - name: filter
+          in: query
+          description: 'JSON Filter, example: { "name": "xyz"}'
+          required: false
+          schema:
+            type: string                                                
       responses:
         '200':    # status code
           description: Default Response
@@ -1177,6 +1242,9 @@ components:
                 rating:
                   type: string
                   example: Doors 
+                brand:
+                  type: string
+                  example: SARA                   
     Products:
       type: array
       items:

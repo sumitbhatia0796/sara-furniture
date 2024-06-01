@@ -10,8 +10,6 @@ export class UserService {
   constructor(private http:HttpClient, private ApiServiceService: ApiServiceService) { }
 
   login(data:object){
-    //send request to save the user 
-
     return this.ApiServiceService.post('users/login',data)
   }
 
