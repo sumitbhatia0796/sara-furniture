@@ -4,21 +4,19 @@
     <div class="search-bar">
       <input type="text" placeholder="Search...">
       <button type="button">Search</button>
-      <a routerLink="/cart" class="auth-link">
-        <i class="fa fa-shopping-cart"></i>
-        <span>cart</span>
-        <div class="cart-count">{{cartCount}}</div> <!-- New div for count -->
-      </a>
     </div>
-   
     <div class="auth" *ngIf="!isAuthenticated">
       <a routerLink="/login" class="auth-link">Login</a>
-      <a routerLink="register" class="auth-link">Register</a>
-    
+      <a routerLink="/register" class="auth-link">Register</a>
     </div>
     <div class="auth" *ngIf="isAuthenticated">
       <a>Welcome, {{ username }}</a>
       <a (click)="logout()" class="auth-link">Logout</a>
     </div>
+    <a routerLink="/cart" class="auth-link cart-icon-container">
+      <i class="fa fa-shopping-cart"></i>
+      <span>Cart</span>
+      <div class="cart-count">{{ cartCount }}</div>
+    </a>
   </div>
 </header>

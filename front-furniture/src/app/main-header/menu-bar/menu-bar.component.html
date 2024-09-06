@@ -1,67 +1,23 @@
- <nav class="menu-bar">
-    <ul>
-      <li><a routerLink="/home">Home</a></li>
-      <li><a routerLink="/about-us">About US</a></li>
-      <li><a routerLink="/best-deal">Today's Deals</a></li>
-      <li><a routerLink="/our-service">Service</a></li>
-      <li><a routerLink="/our-products">Products</a></li>
-
-      <!-- <select class="dropdown">
-        <a href="/our-products" class="dropbtn">Products</a>
-        <div class="dropdown-content">
-          <option><a href="/our-products">Door</a></option>
-          <option><a href="/our-products">Sofa</a></option>
-          <option><a href="/our-products">Almira</a></option>
-          <option><a href="/our-products">Chair</a></option>
-          <option><a href="/our-products">Table</a></option>
-          <option> <a href="/our-products">Cabinet</a></option>
-        </div>
-      </select> -->
-      <li><a href="/home">Sell</a></li>
-      <li><a href="/home">Registry</a></li>
-      <li><a href="/home">Free Shipping</a></li>
-      
-    </ul>
-  </nav>
-
-
-
-<!-- 
- <nav class="menu-bar">
-  <ul>
+<nav class="menu-bar">
+  <span class="hamburger" (click)="toggleMenu()">&#9776;</span>
+  <ul [class.active]="menuActive">
     <li><a routerLink="/home">Home</a></li>
     <li><a routerLink="/about-us">About US</a></li>
     <li><a routerLink="/best-deal">Today's Deals</a></li>
     <li><a routerLink="/our-service">Service</a></li>
-    <li><a href="/our-products">Product</a></li>
     <li class="dropdown">
-      <a href="#" class="dropbtn">Products</a>
+      <a routerLink="/our-products" class="dropbtn">Products</a>
       <div class="dropdown-content">
-        <a href="#">Door</a>
-        <ul class="submenu">
-          <li><a href="#">Door 1</a></li>
-          <li><a href="#">Door 2</a></li>
-          <li><a href="#">Door 3</a></li>
-          Add more subcategories as needed 
-        </ul>
-        <a href="#">Sofa</a>
-        <ul class="submenu">
-          <li><a href="#">Sofa 1</a></li>
-          <li><a href="#">Sofa 2</a></li>
-          <li><a href="#">Sofa 3</a></li>
-          Add more subcategories as needed 
-        </ul>
-        <a href="#">Almira</a>
-       
-        <a href="#">Chair</a>
-      
-      
+        <a routerLink="/our-products">Door</a>
+        <a routerLink="/our-products">Sofa</a>
+        <a routerLink="/our-products">Almira</a>
+        <a routerLink="/our-products">Chair</a>
+        <a routerLink="/our-products">Table</a>
+        <a routerLink="/our-products">Cabinet</a>
       </div>
     </li>
-    <li><a href="#">Sell</a></li>
-    <li><a href="#">Registry</a></li>
-    <li><a href="#">Free Shipping</a></li>
-   
+    <li><a routerLink="/sell">Sell</a></li>
+    <li><a routerLink="/registry">Registry</a></li>
+    <li><a routerLink="/free-shipping">Free Shipping</a></li>
   </ul>
-</nav> -->
-
+</nav>

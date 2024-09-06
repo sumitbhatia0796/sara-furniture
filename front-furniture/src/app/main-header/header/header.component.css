@@ -1,21 +1,27 @@
+body {
+  background-color: lightyellow;
+}
+
 .header-container {
   display: flex;
   align-items: center;
+  justify-content: space-between;
+  padding: 10px;
+  flex-wrap: wrap;
 }
 
 .logo {
-  width: 198px; /* Adjust size as needed */
-  margin-right: 224px; /* Adjust spacing between logo and search bar */
+  width: 150px; /* Adjust size as needed */
+  margin-right: 20px;
 }
 
 .search-bar {
   display: flex;
   align-items: center;
-  margin-right: auto; /* Pushes the search bar to the left as much as possible */
 }
 
 .search-bar input[type="text"] {
-  width: 300px; /* Adjust width of the search input */
+  width: 100%;
   padding: 10px 15px;
   border: 1px solid #ddd;
   border-top-left-radius: 4px;
@@ -53,30 +59,58 @@
 }
 
 .auth-link:hover {
-  color: white; /* Adjust hover color */
+  color: #f90; /* Adjust hover color */
 }
 
 .fa-shopping-cart {
-  margin: 0px 5px;
-  margin-left: 70px;
+  margin: 0 5px;
+}
+
+.cart-icon-container {
+  position: relative;
+  display: inline-block;
 }
 
 .cart-count {
   position: absolute;
-  top: 6px; /* Adjust vertical position */
-  right: 352px; /* Adjust horizontal position */
+  top: -13px; /* Adjust vertical position */
+  right: 34px; /* Adjust horizontal position */
   background-color: #f00; /* Adjust background color */
   color: white; /* Adjust text color */
   border-radius: 50%; /* Make it a circle */
   padding: 2px 8px; /* Adjust padding */
-  font-size: 12px; /* Adjust font size */
+  font-size: 10px; /* Adjust font size */
 }
-/* Media query for smaller screens */
-@media screen and (max-width: 768px) {
+
+@media (max-width: 768px) {
+  .header-container {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .logo {
+    margin-bottom: 10px;
+  }
+
+  .search-bar {
+    width: 100%;
+  }
+
+  .auth {
+    margin-top: 10px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .auth-link {
+    margin-left: 0;
+    margin-bottom: 10px;
+  }
+
   .cart-count {
-    top: 6px; /* Adjust vertical position for smaller screens */
-    right: 352px; /* Adjust horizontal position for smaller screens */
-    font-size: 10px; /* Adjust font size for smaller screens */
+    top: -12px; /* Adjust vertical position for smaller screens */
+    right: 35px; /* Adjust horizontal position for smaller screens */
+    font-size: 8px; /* Adjust font size for smaller screens */
     padding: 3px 6px; /* Adjust padding for smaller screens */
   }
 }

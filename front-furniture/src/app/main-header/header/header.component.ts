@@ -1,4 +1,4 @@
-import { Component, OnInit,ChangeDetectorRef, OnChanges  } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { CommonServiceService } from 'src/app/services/common-service.service';
 import { UtillService } from 'src/app/services/utill.service';
 
@@ -8,29 +8,27 @@ import { UtillService } from 'src/app/services/utill.service';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  constructor(private cdr: ChangeDetectorRef, private UtillService:UtillService,
-     private CommonServiceService: CommonServiceService) {}
-   name: any = '';
-   isAuthenticated: boolean = false;
-   username: string | null = null;
-   cartCount:any;
-   ngOnInit(): void {
-    this.CommonServiceService.isAuthenticated$.subscribe(isAuthenticated => {
+  isAuthenticated: boolean = false;
+  username: string | null = null;
+  cartCount: number = 0;
+
+  constructor(
+    private commonService: CommonServiceService,
+    private utilService: UtillService
+  ) {}
+
+  ngOnInit(): void {
+    this.commonService.isAuthenticated$.subscribe(isAuthenticated => {
       this.isAuthenticated = isAuthenticated;
-      // Fetch username from local storage
       this.username = localStorage.getItem('name');
     });
-    this.UtillService.getCartCount().subscribe(count => {
+
+    this.utilService.getCartCount().subscribe(count => {
       this.cartCount = count;
     });
   }
 
-    ngAfterViewInit(){
-      this.UtillService.getCartCount().subscribe(count => {
-        this.cartCount = count;
-      });
-  }
   logout(): void {
-    this.CommonServiceService.logout();
+    this.commonService.logout();
   }
 }

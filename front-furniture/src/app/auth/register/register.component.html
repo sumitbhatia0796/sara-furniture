@@ -1,143 +1,157 @@
 <div class="body">
-    <h1 style="text-align: center;"><b>Sign in</b></h1>
-  <div class ="registerForm">
-    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="text-center">
-      <div class="text-danger"*ngIf="errorMessage">
-        {{ errorMessage }}
-      </div>
-        <div class="row row-cols-2">
-            <div class="col">
-                <label>First Name</label>
-                <input type="text" formControlName="firstName" class="form-control">
-                <div *ngIf="f.firstName.touched && f.firstName.errors" class="text-danger">{{ f.firstName.errors.required ? 'First Name is required' : '' }}</div>
+  <div class="registerForm container">
+    <h1 style="text-align: center;"><b>Sign in</b></h1><br>
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+          <div class="text-danger" *ngIf="errorMessage">{{ errorMessage }}</div>
+          <div class="row">
+              <div class="col-md-6 form-group">
+                  <label>First Name</label>
+                  <input type="text" formControlName="firstName" class="form-control">
+                  <div *ngIf="f.firstName.touched && f.firstName.errors" class="text-danger">
+                      {{ f.firstName.errors.required ? 'First Name is required' : '' }}
+                  </div>
               </div>
-              <div class="col">
-                <label>Last Name</label>
-                <input type="text" formControlName="lastName" class="form-control">
-                <div *ngIf="f.lastName.touched && f.lastName.errors" class="text-danger">{{ f.lastName.errors.required ? 'Last Name is required' : '' }}</div>
+              <div class="col-md-6 form-group">
+                  <label>Last Name</label>
+                  <input type="text" formControlName="lastName" class="form-control">
+                  <div *ngIf="f.lastName.touched && f.lastName.errors" class="text-danger">
+                      {{ f.lastName.errors.required ? 'Last Name is required' : '' }}
+                  </div>
               </div>
-              <div class="col">
-                <label>Username</label>
-                <input type="text" formControlName="username" class="form-control">
-                <div *ngIf="f.username.touched && f.username.errors" class="text-danger">{{ f.username.errors.required ? 'username is required' : '' }}</div>
+              <div class="col-md-6 form-group">
+                  <label>Username</label>
+                  <input type="text" formControlName="username" class="form-control">
+                  <div *ngIf="f.username.touched && f.username.errors" class="text-danger">
+                      {{ f.username.errors.required ? 'Username is required' : '' }}
+                  </div>
               </div>
-              <div class="col">
-                <label>Email</label>
-                <input type="email" formControlName="email" class="form-control">
-                <div *ngIf="getFormControl('email').invalid && (getFormControl('email').dirty || getFormControl('email').touched)">
-                  <div  class="text-danger" *ngIf="getFormControl('email').errors.required" >Email is required.</div>
-                  <div class="text-danger" *ngIf="getFormControl('email').errors.email">Invalid email format.</div>
-                </div>
+              <div class="col-md-6 form-group">
+                  <label>Email</label>
+                  <input type="email" formControlName="email" class="form-control">
+                  <div *ngIf="getFormControl('email').invalid && (getFormControl('email').dirty || getFormControl('email').touched)">
+                      <div class="text-danger" *ngIf="getFormControl('email').errors.required">Email is required.</div>
+                      <div class="text-danger" *ngIf="getFormControl('email').errors.email">Invalid email format.</div>
+                  </div>
               </div>
-
-              <div class="col">
-                <label>Password</label>
-                <div class="password-input-container">
-                    <input 
-                        type="password" 
-                        formControlName="password" 
-                        class="form-control"
-                        [type]="passwordVisible ? 'text' : 'password'"
-                    >
-                    <button 
-                        class="btn btn-outline-secondary password-toggle" 
-                        type="button" 
-                        (click)="togglePasswordVisibility()"
-                        aria-label="Toggle password visibility"
-                    >
-                        <i class="fa" [ngClass]="{ 'fa-eye': !passwordVisible, 'fa-eye-slash': passwordVisible }"></i>
-                    </button>
-                </div>
-                <div *ngIf="f.password.touched && f.password.errors" class="text-danger">{{ f.password.errors.required ? 'Please enter a strong password' : '' }}</div>
-            </div>
-            
-            <div class="col">
-                <label>Confirm Password</label>
-                <div class="password-input-container">
-                    <input 
-                        type="password" 
-                        formControlName="confirmPassword" 
-                        class="form-control"
-                        [type]="confirmPasswordVisible ? 'text' : 'password'"
-                    >
-                    <button 
-                        class="btn btn-outline-secondary password-toggle" 
-                        type="button" 
-                        (click)="toggleConfirmPasswordVisibility()"
-                        aria-label="Toggle confirm password visibility"
-                    >
-                        <i class="fa" [ngClass]="{ 'fa-eye': !confirmPasswordVisible, 'fa-eye-slash': confirmPasswordVisible }"></i>
-                    </button>
-                </div>
-                <div *ngIf="f.confirmPassword.touched && f.confirmPassword.errors" class="text-danger">{{ f.confirmPassword.errors.required ? 'Enter password again' : '' }}</div>
-                <div *ngIf="registerForm.get('confirmPassword').touched && registerForm.get('confirmPassword').value !== registerForm.get('password').value">
-                    Passwords do not match
-                </div>
-            </div>
-            
-          
-              <div class="col">
-                <label>Mobile no.</label>
-                <input type="text" formControlName="mobileNo" class="form-control">
-                <div *ngIf="f.mobileNo.touched && f.mobileNo.errors" class="text-danger">{{ f.mobileNo.errors.required ? 'Mobile No. is required' : '' }}</div>
+              <div class="col-md-6 form-group">
+                  <label>Password</label>
+                  <div class="password-input-container position-relative">
+                      <input
+                          formControlName="password"
+                          class="form-control"
+                          [type]="passwordVisible ? 'text' : 'password'"
+                      >
+                      <button
+                          class="btn btn-outline-secondary password-toggle position-absolute end-0"
+                          type="button"
+                          (click)="togglePasswordVisibility()"
+                          aria-label="Toggle password visibility"
+                      >
+                          <i class="fa" [ngClass]="{ 'fa-eye': !passwordVisible, 'fa-eye-slash': passwordVisible }"></i>
+                      </button>
+                  </div>
+                  <div *ngIf="f.password.touched && f.password.errors" class="text-danger">
+                      {{ f.password.errors.required ? 'Please enter a strong password' : '' }}
+                  </div>
               </div>
-              <div class="col">
-                <label>DOB</label>
-                <input type="date" formControlName="dob" class="form-control">
-                <div *ngIf="f.dob.touched && f.dob.errors" class="text-danger">{{ f.dob.errors.required ? 'Enter valid details ' : '' }}</div>
+              <div class="col-md-6 form-group">
+                  <label>Confirm Password</label>
+                  <div class="password-input-container position-relative">
+                      <input
+                          formControlName="confirmPassword"
+                          class="form-control"
+                          [type]="confirmPasswordVisible ? 'text' : 'password'"
+                      >
+                      <button
+                          class="btn btn-outline-secondary password-toggle position-absolute end-0"
+                          type="button"
+                          (click)="toggleConfirmPasswordVisibility()"
+                          aria-label="Toggle confirm password visibility"
+                      >
+                          <i class="fa" [ngClass]="{ 'fa-eye': !confirmPasswordVisible, 'fa-eye-slash': confirmPasswordVisible }"></i>
+                      </button>
+                  </div>
+                  <div *ngIf="f.confirmPassword.touched && f.confirmPassword.errors" class="text-danger">
+                      {{ f.confirmPassword.errors.required ? 'Enter password again' : '' }}
+                  </div>
+                  <div *ngIf="registerForm.get('confirmPassword').touched && registerForm.get('confirmPassword').value !== registerForm.get('password').value" class="text-danger">
+                      Passwords do not match
+                  </div>
               </div>
-        
-        <div class="col">
-            <label for="gender">Gender:</label>
-            <select id="gender" formControlName="gender" class="form-control">
-              <option value="">Select</option>
-              <option value="Male">Male</option>
-              <option value="Female">Female</option>
-              <option value="Other">Other</option>
-            </select>
-            <div *ngIf="f.gender.errors && (f.gender.dirty || f.gender.touched)" class="text-danger">
-              <div *ngIf="f.gender.errors.required">Gender is required.</div>
-            </div>
+              <div class="col-md-6 form-group">
+                  <label>Mobile no.</label>
+                  <input type="text" formControlName="mobileNo" class="form-control">
+                  <div *ngIf="f.mobileNo.touched && f.mobileNo.errors" class="text-danger">
+                      {{ f.mobileNo.errors.required ? 'Mobile No. is required' : '' }}
+                  </div>
+              </div>
+              <div class="col-md-6 form-group">
+                  <label>DOB</label>
+                  <input type="date" formControlName="dob" class="form-control">
+                  <div *ngIf="f.dob.touched && f.dob.errors" class="text-danger">
+                      {{ f.dob.errors.required ? 'Enter valid details ' : '' }}
+                  </div>
+              </div>
+              <div class="col-md-6 form-group">
+                  <label for="gender">Gender:</label>
+                  <select id="gender" formControlName="gender" class="form-control">
+                      <option value="">Select</option>
+                      <option value="Male">Male</option>
+                      <option value="Female">Female</option>
+                      <option value="Other">Other</option>
+                  </select>
+                  <div *ngIf="f.gender.errors && (f.gender.dirty || f.gender.touched)" class="text-danger">
+                      <div *ngIf="f.gender.errors.required">Gender is required.</div>
+                  </div>
+              </div>
+              <div class="col-md-6 form-group">
+                  <label>Address</label>
+                  <input type="textarea" formControlName="address" class="form-control">
+                  <div *ngIf="f.address.touched && f.address.errors" class="text-danger">
+                      {{ f.address.errors.required ? 'Enter valid details ' : '' }}
+                  </div>
+              </div>
+              <div class="col-md-6 form-group">
+                  <label>Country</label>
+                  <select formControlName="country" class="form-control">
+                      <option value="">Select Country</option>
+                      <option *ngFor="let country of countries" [value]="country">{{ country }}</option>
+                  </select>
+                  <div *ngIf="f.country.touched && f.country.errors" class="text-danger">
+                      {{ f.country.errors.required ? 'Country is required' : '' }}
+                  </div>
+              </div>
+              <div class="col-md-6 form-group">
+                  <label>State</label>
+                  <select formControlName="state" class="form-control">
+                      <option value="">Select State</option>
+                      <option *ngFor="let state of states" [value]="state">{{ state }}</option>
+                  </select>
+                  <div *ngIf="f.state.touched && f.state.errors" class="text-danger">
+                      {{ f.state.errors.required ? 'State is required' : '' }}
+                  </div>
+              </div>
+              <div class="col-md-6 form-group">
+                  <label>City</label>
+                  <select formControlName="city" class="form-control">
+                      <option value="">Select City</option>
+                      <option *ngFor="let city of cities" [value]="city">{{ city }}</option>
+                  </select>
+                  <div *ngIf="f.city.touched && f.city.errors" class="text-danger">
+                      {{ f.city.errors.required ? 'City is required' : '' }}
+                  </div>
+              </div>
+              <div class="col-md-6 form-group">
+                  <label>Pin</label>
+                  <input type="text" formControlName="pin" class="form-control">
+                  <div *ngIf="f.pin.touched && f.pin.errors" class="text-danger">
+                      {{ f.pin.errors.required ? 'Pin is required' : '' }}
+                  </div>
+              </div>
+          </div><br>
+          <div class="col-12 text-center">
+              <button type="submit" class="btn btn-primary">Register</button>
           </div>
-          <div class="col">
-            <label>Address</label>
-            <input type="textarea" formControlName="address" class="form-control">
-            <div *ngIf="f.address.touched && f.address.errors" class="text-danger">{{ f.address.errors.required ? 'Enter valid details ' : '' }}</div>
-          </div>
-
-          <div class="col">
-            <label>Country</label>
-            <select formControlName="country" class="form-control">
-              <option value="">Select Country</option>
-              <option *ngFor="let country of countries" [value]="country">{{ country }}</option>
-            </select>
-            <div *ngIf="f.country.touched && f.country.errors" class="text-danger">{{ f.country.errors.required ? 'Country is required' : '' }}</div>
-          </div>
-          <div class="col">
-            <label>State</label>
-            <select formControlName="state" class="form-control" >
-              <option value="">Select State</option>
-              <option *ngFor="let state of states" [value]="state">{{ state }}</option>
-            </select>
-            <div *ngIf="f.state.touched && f.state.errors" class="text-danger">{{ f.state.errors.required ? 'State is required' : '' }}</div>
-          </div>
-          <div class="col">
-            <label>District.</label>
-            <select formControlName="city" class="form-control">
-              <option value="">Select City</option>
-              <option *ngFor="let city of cities" [value]="city">{{ city }}</option>
-            </select>
-            <div *ngIf="f.city.touched && f.city.errors" class="text-danger">{{ f.city.errors.required ? 'City is required' : '' }}</div>
-          </div>
-          <div class="col">
-            <label>Pincode</label>
-            <input type="text" formControlName="pin" class="form-control">
-            <div *ngIf="f.pin.touched && f.pin.errors" class="text-danger">{{ f.pin.errors.required ? 'Pincode is required' : '' }}</div>
-          </div>
-        </div>
-    
-        <button class="btn btn-info my-4 btn-block" type="submit" [disabled]="registerForm.invalid" >Sign in</button>   
-         
       </form>
- </div>
+  </div>
 </div>

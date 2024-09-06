@@ -8,6 +8,12 @@ import { Component, Output, EventEmitter } from '@angular/core';
 export class MenuBarComponent {
   @Output() toggleSidebar = new EventEmitter<void>();
 
+  menuActive = false;
+
+  toggleMenu() {
+    this.menuActive = !this.menuActive;
+  }
+
   toggleSideBar() {
     this.toggleSidebar.emit();
   }
